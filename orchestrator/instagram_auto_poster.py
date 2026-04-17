@@ -550,25 +550,16 @@ class InstagramAutoPoser:
             caption = self.generate_dynamic_caption(story_info)
             logger.info(f"[+] Caption:\n{caption}\n")
 
-            # Step 3: Calculate posting time
-            logger.info("\n[STEP 3] Calculating posting time...")
-            wait_seconds, post_time = self.get_random_posting_time()
-
-            # Step 4: Wait until posting time
-            logger.info(f"\n[STEP 4] Waiting {int(wait_seconds)} seconds until {post_time.strftime('%H:%M')}...")
-            import time
-            time.sleep(wait_seconds)
-
-            # Step 5: Post to Instagram
-            logger.info("\n[STEP 5] Posting to Instagram...")
+            # Step 3: Post to Instagram (no wait - post immediately)
+            logger.info("\n[STEP 3] Posting to Instagram...")
             post_id = self.post_to_instagram(story_info["url"], caption)
 
             if not post_id:
                 logger.error("[-] Failed to post to Instagram")
                 return False
 
-            # Step 6: Log success
-            logger.info("\n[STEP 6] Logging posted video...")
+            # Step 4: Log success
+            logger.info("\n[STEP 4] Logging posted video...")
             self.log_posted_video(story_info, post_id)
 
             logger.info("\n" + "=" * 60)
