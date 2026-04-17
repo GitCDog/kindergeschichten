@@ -1,0 +1,100 @@
+numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_json,status_audio,seconds,status_picture,status_video,status_caption,insta_post
+1,dragon,sword,knight,The Brave Knight and the Golden Dragon,X,667,O,X,219,X,X,O,X
+2,girl,dog,ice cream,Lucy's Sweet Adventure with Her Best Friend,X,961,O,X,338,X,X,O,X
+3,frog,princess,prince,The Frog's Royal Secret,X,470,O,X,148,X,X,O,X
+4,fox,flower,squirel,The Fox and the Forest Friends,X,358,X,X,117,X,X,O,X
+5,kid,shoe,puddle,The Magic in the Puddle,X,367,X,X,116,X,X,O,X
+6,lion,zebra,river,The Lion and Zebra by the River,X,403,X,X,129,X,X,O,X
+7,brave little dragon,magical forest,shiny treasure,The Brave Dragon's Sparkly Quest,X,435,X,X,146,X,X,O,X
+8,curious bunny,rainbow river,talking flowers,Bunny's Rainbow River Adventure,X,432,X,X,143,X,X,O,X
+9,friendly robot,starry night,moon cookies,Robot's Midnight Moon Cookie Party,X,413,X,X,139,X,X,O,X
+10,little mermaid,underwater castle,colorful coral,The Mermaid and the Coral Kingdom,X,449,X,X,152,X,X,O,X
+11,clever fox,whispering woods,hidden path,Fox's Secret Forest Path,X,430,X,X,139,X,X,O,X
+12,playful penguin,ice castle,snowball fight,Penguin's Snowy Castle Games,X,427,X,X,150,X,X,O,X
+13,magic unicorn,cloud castle,rainbow bridge,Unicorn's Rainbow Bridge Journey,X,466,O,X,151,X,X,O,X
+14,tiny astronaut,red planet,martian friends,Astronaut_s_Little_Red_Planet_Pal,X,391,X,X,128,X,X,O,X
+15,singing bird,golden cage,enchanted garden,Bird_s_Golden_Garden_Song,X,413,X,X,133,X,X,O,X
+16,jolly giant,beanstalk village,ticklish clouds,Giant_s_Tickly_Cloud_Adventure,X,382,X,X,123,X,X,O,X
+17,shy turtle,ocean waves,shiny shell,Turtle_s_Sparkly_Shell_Secret,X,391,X,X,131,X,X,O,X
+18,brave knight,fire-breathing dragon,shining armor,Knight_and_the_Friendly_Dragon,X,417,X,X,140,X,X,O,X
+19,little witch,broomstick race,pumpkin patch,Witch_s_Pumpkin_Broomstick_Race,X,402,X,X,135,X,X,O,X
+20,curious kitten,mysterious box,yarn ball adventure,Kitten_s_Magic_Box_Surprise,X,396,X,X,132,X,X,O,X
+21,cheerful monkey,jungle swing,banana feast,Monkey_s_Banana_Jungle_Party,X,350,X,X,116,X,X,O,O
+22,sleepy bear,honey tree,dreamy meadow,Bear_s_Sweet_Honey_Dreams,X,394,X,X,132,X,X,O,X
+23,tiny fairy,dew drop castle,butterfly wings,Fairy_s_Dewdrop_Butterfly_Dance,X,385,X,X,128,X,X,O,X
+24,brave lion,courage cave,roaring echo,Lion_s_Brave_Echo_Cave,X,377,X,X,120,X,X,O,O
+25,smart owl,night library,star books,Owl_s_Starry_Night_Library,X,386,X,X,130,X,X,O,O
+26,little elephant,jungle river,splashing fun,Elephant_s_Big_Splash_River_Day,X,377,X,X,126,X,X,O,O
+27,gentle deer,whispering wind,ancient oak,Deer_s_Gentle_Forest_Secret,X,388,X,X,136,X,X,O,O
+28,playful dolphin,ocean waves,treasure reef,Dolphin_s_Sparkly_Treasure_Reef,X,388,X,X,122,X,X,O,O
+29,magic puppy,rainbow collar,friendship bone,Puppy_s_Rainbow_Friendship_Bone,X,399,X,X,132,X,X,O,O
+30,cozy hedgehog,warm blanket,autumn leaves,Hedgehog_s_Cozy_Leaf_Nest,X,357,X,X,122,X,X,O,O
+31,little pirate,wooden ship,glowing island,Pirate_s_Glowing_Island_Quest,X,372,X,X,131,X,X,O,O
+32,kind butterfly,flower meadow,pollen party,Butterfly_s_Flower_Meadow_Party,X,383,X,X,123,X,X,O,O
+33,brave beaver,wooden dam,rushing river,Beaver_s_Big_River_Dam,X,391,X,X,120,X,X,O,O
+34,silly octopus,eight arms,ocean circus,Octopus_s_Silly_Ocean_Circus,X,354,X,X,114,X,X,O,O
+35,tiny mouse,cheese castle,quiet adventure,Mouse_s_Cheesy_Castle_Quest,X,372,X,X,120,X,X,O,O
+36,sparkly snowman,winter wonderland,carrot nose,Snowman_s_Magical_Winter_Day,X,385,X,X,138,X,X,O,O
+37,friendly ghost,haunted attic,moonlight dance,Ghost_s_Friendly_Moonlight_Dance,X,381,X,X,124,X,X,O,O
+38,little kangaroo,jumping pouch,desert stars,Kangaroo_s_Starry_Desert_Jump,X,340,X,X,110,X,X,O,O
+39,magic caterpillar,leaf blanket,butterfly dream,Caterpillar_s_Butterfly_Dream,X,377,X,X,128,X,X,O,O
+40,curious squirrel,acorn treasure,nutty forest,Squirrel_s_Hidden_Acorn_Treasure,X,394,X,X,128,X,X,O,O
+41,brave seahorse,coral kingdom,ocean bubbles,Seahorse_s_Bubble_Kingdom,X,373,X,X,118,X,X,O,O
+42,sweet lamb,fluffy cloud,gentle meadow,Lamb_s_Fluffy_Cloud_Nap,X,354,X,X,115,X,X,O,O
+43,little robot dog,battery moon,star chase,Robot_Dog_s_Starry_Chase,X,359,X,X,111,X,X,O,O
+44,whimsical whale,ocean song,starfish friends,Whale_s_Starfish_Ocean_Song,X,352,X,X,121,X,X,O,O
+45,playful panda,bamboo forest,rolling hills,Panda_s_Bamboo_Rolling_Adventure,X,372,X,X,124,X,X,O,O
+46,tiny firefly,night lantern,forest glow,Firefly_s_Magical_Forest_Glow,X,354,X,X,116,X,X,O,O
+47,clever crow,shiny pebble,treasure nest,Crow_s_Sparkly_Pebble_Nest,X,379,X,X,129,X,X,O,O
+48,kind koala,eucalyptus tree,dreamy branch,Koala_s_Cozy_Tree_Dream,X,376,X,X,123,X,X,O,O
+49,little zebra,striped adventure,savanna sun,Zebra_s_Sunny_Striped_Day,X,358,X,X,113,X,X,O,O
+50,brave badger,underground tunnel,star crystals,Badger_s_Crystal_Tunnel_Quest,X,400,X,X,127,X,X,O,O
+51,silly snail,slow race,leaf umbrella,Snail_s_Leaf_Umbrella_Race,X,382,X,X,125,X,X,O,O
+52,magic reindeer,northern lights,sleigh bells,Reindeer_s_Sparkly_Sleigh_Ride,X,402,X,X,131,X,X,O,O
+53,curious crab,sandy castle,ocean waves,Crab_s_Sandy_Castle_Kingdom,X,377,X,X,123,X,X,O,O
+54,gentle giraffe,tall trees,leaf snacks,Giraffe_s_Tall_Tree_Adventure,X,388,X,X,126,X,X,O,O
+55,little bee,honey hive,flower garden,Bee_s_Sweet_Flower_Garden,X,380,X,X,125,X,X,O,O
+56,brave bunny,rabbit hole,carrot castle,Bunny_s_Carrot_Castle_Quest,X,417,X,X,140,X,X,O,O
+57,sparkly starfish,ocean floor,moon tide,Starfish_s_Moonlit_Ocean_Dance,X,403,X,X,134,X,X,O,O
+58,cozy owl family,nest bedtime,star stories,Owl_Family_s_Starry_Bedtime,X,400,X,X,134,X,X,O,O
+59,playful parrot,colorful feathers,jungle jokes,Parrot_s_Jungle_Joke_Party,X,397,X,X,133,X,X,O,O
+60,tiny tiger,courage stripes,jungle roar,Tiger_s_Brave_Stripe_Adventure,X,423,X,X,139,X,X,O,O
+61,friendly frog,lily pad pond,rainy song,Frog_s_Rainy_Lily_Pad_Song,X,395,X,X,127,X,X,O,O
+62,little hippo,muddy river,splashy fun,Hippo's Big Muddy Splash,X,394,X,X,133,X,X,O,O
+63,magic mushroom,forest fairy,dotty house,Mushroom's Fairy Dotty Home,X,367,X,X,113,O,O,O,O
+64,sweet sloth,slow swing,leaf hammock,Sloth's Lazy Leaf Swing,X,358,X,X,119,O,O,O,O
+65,brave butterfly,caterpillar courage,wings of light,Butterfly's Courage Wings,X,362,X,X,125,O,O,O,O
+66,curious camel,desert oasis,star dunes,Camel's Starry Desert Oasis,X,409,X,X,133,O,O,O,O
+67,jolly jellyfish,ocean glow,tentacle dance,Jellyfish's Glowy Tentacle Dance,X,393,X,X,132,O,O,O,O
+68,little lambkin,woolly cloud,meadow dreams,Lambkin's Woolly Meadow Dream,X,375,X,X,123,O,O,O,O
+69,smart spider,silky web,dew drop castle,Spider's Dewdrop Web Castle,X,379,X,X,127,O,O,O,O
+70,playful polar bear,icy slide,snowflake friends,Polar Bear's Snowflake Slide,X,423,X,X,135,O,O,O,O
+71,tiny tortoise,slow journey,ancient shell,Tortoise's Ancient Shell Tale,X,395,X,X,124,O,O,O,O
+72,kind kangaroo pouch,baby adventure,starry jump,Kangaroo's Starry Pouch Ride,X,383,X,X,121,O,O,O,O
+73,magic mole,underground glow,crystal cave,Mole's Sparkly Crystal Cave,X,393,X,X,127,O,O,O,O
+74,cheerful chipmunk,acorn race,forest fun,Chipmunk's Acorn Forest Race,X,400,X,X,132,O,O,O,O
+75,brave baby dragon,first flight,cloud castle,Baby Dragon's First Cloud Flight,X,437,X,X,138,O,O,O,O
+76,silly seal,beach ball,ocean bounce,Seal's Bouncy Beach Ball Day,X,361,X,X,123,O,O,O,O
+77,little ladybug,spotty wings,flower house,Ladybug's Spotty Flower Home,X,389,X,X,127,O,O,O,O
+78,gentle gorilla,jungle hug,banana bunch,Gorilla's Big Banana Hug,X,420,X,X,141,O,O,O,O
+79,sparkly seagull,coastal wind,shell treasure,Seagull's Shiny Shell Quest,X,435,X,X,140,O,O,O,O
+80,curious caterpillar,leaf tunnel,butterfly surprise,Caterpillar's Leafy Surprise,X,364,X,X,114,O,O,O,O
+81,cozy raccoon,moon mask,forest night,Raccoon's Moonlit Forest Mask,X,414,X,X,137,O,O,O,O
+82,brave beetle,shiny armor,leaf knight,Beetle's Leafy Knight Adventure,X,419,X,X,140,O,O,O,O
+83,playful platypus,river bill,duck-billed fun,Platypus's Bill River Games,X,424,X,X,143,O,O,O,O
+84,tiny termite,wooden castle,tunnel friends,Termite's Tiny Wooden Castle,X,417,X,X,148,O,O,O,O
+85,magic meerkat,desert watch,sunset lookout,Meerkat's Sunset Desert Watch,X,402,X,X,123,O,O,O,O
+86,sweet swan,graceful lake,feather dance,Swan's Graceful Feather Lake,X,370,X,X,122,O,O,O,O
+87,little lynx,soft paws,snowy whisper,Lynx's Soft Snowy Whisper,X,394,X,X,127,O,O,O,O
+88,friendly flamingo,pink lake,one-leg stand,Flamingo's Pink Lake Dance,X,393,X,X,131,O,O,O,O
+89,brave bat,night wings,star fruit,Bat's Starry Night Fruit,X,386,X,X,118,O,O,O,O
+90,curious chameleon,color change,leaf hide,Chameleon's Leafy Color Hide,X,365,X,X,122,O,O,O,O
+91,jolly jaguar,spotted jungle,roar party,Jaguar's Spotted Jungle Roar,X,379,X,X,119,O,O,O,O
+92,cozy cat,whisker dream,moon yarn,Cat's Moonlight Whisker Dream,X,396,X,X,132,O,O,O,O
+93,tiny toadstool,fairy ring,mushroom house,Toadstool's Fairy Ring Home,X,391,X,X,125,O,O,O,O
+94,brave bear cub,first honey,forest trail,Bear Cub's First Honey Trail,X,424,X,X,131,O,O,O,O
+95,playful puffin,cliff nest,ocean fish,Puffin's Cliffside Fish Adventure,X,379,X,X,126,O,O,O,O
+96,magic moth,moonlight wings,night garden,Moth's Moonlit Garden Wings,X,376,X,X,130,O,O,O,O
+97,kind kiwi,brown feathers,star fruit,Kiwi's Starry Fruit Night,X,398,X,X,127,O,O,O,O
+98,silly spider monkey,swinging tail,jungle giggle,Spider Monkey's Giggle Swing,X,408,X,X,124,O,O,O,O
+99,gentle gazelle,graceful run,savanna wind,Gazelle's Graceful Savanna Wind,X,398,X,X,127,O,O,O,O

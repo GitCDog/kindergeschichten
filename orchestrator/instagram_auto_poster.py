@@ -34,22 +34,20 @@ try:
 except ImportError:
     GITHUB_AVAILABLE = False
 
-# Load environment variables
-load_dotenv()
+# Environment variables come from GitHub Secrets (no local .env needed)
+# When running locally, you can: export VAR=value or source .env
+try:
+    load_dotenv()
+except:
+    pass
 
-# Configure logging
+# Configure logging - GitHub Actions captures stdout/stderr automatically
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler("logs/instagram_auto_poster.log", encoding='utf-8')
-    ]
+    handlers=[logging.StreamHandler()]  # Only stdout (no local files)
 )
 logger = logging.getLogger(__name__)
-
-# Ensure logs directory exists
-Path("logs").mkdir(exist_ok=True)
 
 
 class InstagramAutoPoser:
@@ -416,6 +414,9 @@ class InstagramAutoPoser:
             self._update_github_input_file(story_info)
             self._update_github_posted_videos(data)
 
+            # 4. Delete video from Cloudinary (cleanup)
+            self._delete_from_cloudinary(story_info)
+
         except Exception as e:
             logger.error(f"[-] Error logging posted video: {e}")
 
@@ -502,6 +503,30 @@ class InstagramAutoPoser:
         except Exception as e:
             logger.error(f"[-] Error updating GitHub posted_videos: {e}")
 
+    def _delete_from_cloudinary(self, story_info):
+        """Delete video from Cloudinary after successful Instagram posting."""
+        try:
+            public_id = story_info.get("public_id")
+            story_name = story_info.get("story_name")
+
+            if not public_id:
+                logger.warning(f"[!] No public_id for {story_name}, skipping Cloudinary deletion")
+                return
+
+            logger.info(f"[*] Deleting from Cloudinary: {public_id}")
+
+            result = cloudinary.api.delete_resources(
+                public_ids=[public_id],
+                resource_type="video"
+            )
+
+            if result.get("deleted", {}).get(public_id) == "deleted":
+                logger.info(f"[+] Deleted from Cloudinary: {public_id}")
+            else:
+                logger.warning(f"[!] Cloudinary deletion response: {result}")
+
+        except Exception as e:
+            logger.error(f"[-] Error deleting from Cloudinary: {e}")
 
     def get_random_posting_time(self):
         """

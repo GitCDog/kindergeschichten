@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Centralized input file manager.
-RULE: Every modification to 0_input_all_stories.txt automatically updates dashboard.
+RULE: Dashboard always reads from GitHub input file to stay synced with automation.
 """
 
 import csv
@@ -9,13 +9,20 @@ import json
 import subprocess
 import logging
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+import requests
+
+load_dotenv()
 
 
 class InputFileManager:
-    """Manages 0_input_all_stories.txt with automatic dashboard updates."""
+    """Manages 0_input_all_stories.txt - reads from GitHub, writes to both local and GitHub."""
 
     def __init__(self):
         self.input_file = Path("input/0_input_all_stories.txt")
+        self.github_token = os.getenv("GITHUB_TOKEN")
+        self.github_repo = os.getenv("GITHUB_REPO")
         self.logger = self._setup_logging()
 
     def _setup_logging(self):
@@ -29,30 +36,81 @@ class InputFileManager:
 
     def save_rows(self, rows, description=""):
         """
-        Save rows to input file and AUTOMATICALLY update dashboard.
+        Save rows to input file AND sync to GitHub.
 
-        RULE: Input file changes → Dashboard updates (automatic)
+        RULE: Input file changes → GitHub syncs → Dashboard updates
         """
         if not rows:
             self.logger.error("Cannot save empty rows")
             return False
 
         try:
-            # Write to input file
+            # Step 1: Write to local file
             with open(self.input_file, 'w', encoding='utf-8', newline='') as f:
                 writer = csv.DictWriter(f, fieldnames=rows[0].keys())
                 writer.writeheader()
                 writer.writerows(rows)
 
-            self.logger.info(f"[+] Input file updated{': ' + description if description else ''}")
+            self.logger.info(f"[+] Input file updated locally{': ' + description if description else ''}")
 
-            # AUTOMATIC: Update dashboard
+            # Step 2: Sync to GitHub
+            if self.github_token and self.github_repo:
+                self._sync_to_github(rows, description)
+
+            # Step 3: Update dashboard
             self._update_dashboard_cascade()
             return True
 
         except Exception as e:
             self.logger.error(f"[-] Failed to save input file: {e}")
             return False
+
+    def _sync_to_github(self, rows, description=""):
+        """Sync input file changes to GitHub."""
+        try:
+            import base64
+
+            # Generate CSV content
+            output = []
+            if rows:
+                fieldnames = rows[0].keys()
+                output.append(','.join(fieldnames))
+                for row in rows:
+                    output.append(','.join(str(row.get(f, '')) for f in fieldnames))
+
+            content = '\n'.join(output) + '\n'
+            content_b64 = base64.b64encode(content.encode()).decode()
+
+            # Get current file SHA
+            url = f"https://api.github.com/repos/{self.github_repo}/contents/orchestrator/input/0_input_all_stories.txt"
+            headers = {
+                "Authorization": f"token {self.github_token}",
+                "Accept": "application/vnd.github.v3+json"
+            }
+
+            get_response = requests.get(url, headers=headers, timeout=10)
+            if get_response.status_code != 200:
+                self.logger.warning(f"[-] Could not get GitHub file SHA: {get_response.status_code}")
+                return
+
+            sha = get_response.json()['sha']
+
+            # Update file on GitHub
+            commit_msg = f"[DASHBOARD] {description}" if description else "[DASHBOARD] Update input file"
+            update_data = {
+                "message": commit_msg,
+                "content": content_b64,
+                "sha": sha
+            }
+
+            update_response = requests.put(url, json=update_data, headers=headers, timeout=10)
+            if update_response.status_code == 200:
+                self.logger.info(f"[+] GitHub synced")
+            else:
+                self.logger.warning(f"[-] GitHub sync failed: {update_response.status_code}")
+
+        except Exception as e:
+            self.logger.warning(f"[-] GitHub sync error: {e}")
 
     def _update_dashboard_cascade(self):
         """
@@ -95,13 +153,39 @@ class InputFileManager:
             self.logger.error(f"[-] Dashboard update failed: {e}")
 
     def read_rows(self):
-        """Read rows from input file (no side effects)."""
+        """Read rows from GitHub input file (always current)."""
+        if self.github_token and self.github_repo:
+            return self._read_rows_from_github()
+        else:
+            return self._read_rows_from_local()
+
+    def _read_rows_from_github(self):
+        """Read input file from GitHub."""
+        try:
+            url = f"https://api.github.com/repos/{self.github_repo}/contents/orchestrator/input/0_input_all_stories.txt"
+            headers = {
+                "Authorization": f"token {self.github_token}",
+                "Accept": "application/vnd.github.v3.raw"
+            }
+            response = requests.get(url, headers=headers, timeout=10)
+            if response.status_code == 200:
+                reader = csv.DictReader(response.text.split('\n'))
+                return list(reader)
+            else:
+                self.logger.warning(f"[-] Failed to read from GitHub ({response.status_code}), falling back to local")
+                return self._read_rows_from_local()
+        except Exception as e:
+            self.logger.warning(f"[-] GitHub read failed: {e}, falling back to local")
+            return self._read_rows_from_local()
+
+    def _read_rows_from_local(self):
+        """Read rows from local input file (fallback)."""
         try:
             with open(self.input_file, 'r', encoding='utf-8') as f:
                 reader = csv.DictReader(f)
                 return list(reader)
         except Exception as e:
-            self.logger.error(f"[-] Failed to read input file: {e}")
+            self.logger.error(f"[-] Failed to read local input file: {e}")
             return []
 
     def update_cell(self, story_name, column, value):

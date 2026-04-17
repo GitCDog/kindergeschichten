@@ -14,14 +14,17 @@ python dashboard_api.py
 # Open http://localhost:9000
 ```
 
-### Automatic Instagram Posting (NEW)
-```bash
-# 1. Set up .env with Cloudinary + Instagram credentials
-# 2. Set up GitHub (optional): Auto-sync input file while computer is off
-# 3. Create Claude Routine: Daily at 17:55 CET
-# 4. Routine executes: python instagram_auto_poster.py
-# See orchestrator/INSTAGRAM_SETUP.md + orchestrator/GITHUB_SETUP.md
-```
+### Automatic Instagram Posting (GitHub Actions)
+**Posts automatically every 3 days at 15:30 CET**
+
+Setup already configured in `.github/workflows/instagram-poster.yml`:
+- GitHub Actions triggers every 3 days
+- Reads input file from GitHub
+- Posts next unposted video to Instagram
+- Updates GitHub tracking automatically
+- Deletes video from Cloudinary after posting
+
+Credentials stored in **GitHub Secrets** (not .env)
 
 ## 🚨 CRITICAL RULES (NON-NEGOTIABLE)
 
@@ -56,18 +59,24 @@ Every script must update the CSV after generating files:
 - Always update status fields (`X` = processed, `O` = pending)
 
 ### 5️⃣ API KEYS REQUIRED
+
+**Dashboard (.env file locally):**
 ```bash
-# Dashboard generation
 OPENAI_API_KEY=sk-...                    # GPT Image (book covers)
 ELEVENLABS_API_KEY=sk_...                # ElevenLabs TTS (audio)
+```
 
-# Automatic Instagram posting (optional)
+**Automatic Instagram (GitHub Secrets - cloud only):**
+```
 CLOUDINARY_CLOUD_NAME=...                # Cloudinary account
 CLOUDINARY_API_KEY=...
 CLOUDINARY_API_SECRET=...
-INSTAGRAM_BUSINESS_ACCOUNT_ID=...        # Meta Business Account
+INSTAGRAM_RECIPIENT_ID=...               # Instagram Business Account ID
 INSTAGRAM_ACCESS_TOKEN=...               # Long-lived access token
+GITHUB_TOKEN=...                         # for GitHub API access
+GITHUB_REPO=...                          # your-org/your-repo
 ```
+**Note:** Credentials set in GitHub Settings → Secrets, not in local .env
 
 ## 📊 Dashboard Buttons
 | Button | Script | Does |
