@@ -1,0 +1,11 @@
+1. automate the Story Generator
+- tell how to start the story
+- tell how to end the Story
+
+
+2. create short caption generator for each Video
+
+
+
+3. improve Story Generation mdfile
+pretend you are an old grandpa telling a bed time story to your grandkids. write a story with approx. 700 words. include Key Parenthetical

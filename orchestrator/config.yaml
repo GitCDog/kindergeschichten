@@ -1,0 +1,61 @@
+# Kindergeschichten Automation Configuration
+
+# Story Generation Settings
+story_generation:
+  # Generator type: "claude" (creative), "template" (fast, offline), or "both" (try claude, fallback to template)
+  generator_type: "both"
+  theme: "adventure"  # Optional: theme for story generation
+  target_duration_seconds: 175  # 170-180 seconds (~3 minutes)
+
+# Text-to-Speech Settings
+text_to_speech:
+  # Voice preset: "friendly_child", "storyteller", "playful", "tomasz_z"
+  voice_preset: "tomasz_z"
+  # Enable audio duration validation
+  validate_audio: true
+
+# Video Creation Settings
+video_creation:
+  # Video resolution: Instagram Reels format (1080x1920)
+  width: 1080
+  height: 1920
+  # Frame rate (fps)
+  fps: 24
+  # Video bitrate (e.g., "6000k")
+  bitrate: "6000k"
+  # Image directory (for rotating background images)
+  image_directory: "./images"
+
+# Instagram Upload Settings
+instagram:
+  # Upload type: "immediate" or "schedule"
+  upload_type: "immediate"
+  # Scheduled upload time (if schedule mode): "HH:MM" format
+  scheduled_time: "18:00"
+  # Hashtags to add to caption
+  hashtags:
+    - "KidsStories"
+    - "Storytelling"
+    - "ChildrensBooks"
+    - "BedtimeStories"
+    - "AudioStories"
+  # Caption template (use {title} and {theme} placeholders)
+  caption_template: "📖 {title}\n\nOnce upon a time... Let's go on an adventure together!\n\n{hashtags}"
+
+# Output Settings
+output:
+  # Output directory for generated files
+  output_directory: "./output"
+  # Save intermediate files (story text, audio, etc.)
+  save_intermediate: true
+  # Log file path
+  log_file: "./logs/workflow.log"
+
+# Frequency Settings
+schedule:
+  # "immediate": Generate and upload now
+  # "daily": Once per day at scheduled_time
+  # "weekly": Specific days (e.g., monday, wednesday, friday)
+  frequency: "immediate"
+  # Days for weekly schedule (if frequency is weekly)
+  days: ["monday", "wednesday", "friday"]

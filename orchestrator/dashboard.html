@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kindergeschichten Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.95);
+        }
+
+        .refresh-btn.scanning {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .scan-progress {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .scan-progress.visible {
+            display: block;
+        }
+
+        .progress-bar-scan {
+            background: #e9ecef;
+            border-radius: 4px;
+            height: 30px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill-scan {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .scan-message {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-box h3 {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .stat-box .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .progress-section {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 4px;
+            height: 30px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #28a745, #20c997);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            width: 90%;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            height: 750px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .table-scroll {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead {
+            background: #667eea;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .num {
+            font-weight: bold;
+            color: #667eea;
+            width: 35px;
+            text-align: center;
+        }
+
+        .name {
+            min-width: 250px;
+            font-weight: 500;
+        }
+
+        .keywords {
+            min-width: 200px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .status-cell {
+            text-align: center;
+            width: 35px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .insta-button {
+            background: #e9ecef;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .insta-button:hover {
+            background: #dee2e6;
+        }
+
+        .insta-button.active {
+            background: #28a745;
+            color: white;
+        }
+
+        .insta-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span>📚 Kindergeschichten Automation Dashboard</span>
+                <div style="display: flex; gap: 10px;">
+                    <button class="refresh-btn" onclick="scanForNewFiles()" id="scanBtn">🔄 Scan for New Files</button>
+                    <button class="refresh-btn" onclick="wordCountAndJson()" id="wordBtn">📝 Word Count & JSON</button>
+                    <button class="refresh-btn" onclick="generateAudio()" id="audioBtn">🎵 Generate Audio</button>
+                    <button class="refresh-btn" onclick="generatePictures()" id="picBtn">🖼️ Generate Pics</button>
+                    <button class="refresh-btn" onclick="generateVideo()" id="videoBtn">🎬 Generate Videos</button>
+                </div>
+            </h1>
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>Total Stories</h3>
+                    <div class="value">99</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Text Files ✓</h3>
+                    <div class="value">99/99</div>
+                </div>
+                <div class="stat-box">
+                    <h3>JSON Files ✓</h3>
+                    <div class="value">95/99</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Audio Files ✓</h3>
+                    <div class="value">99/99</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Pictures ✓</h3>
+                    <div class="value">62/99</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Video Files ✓</h3>
+                    <div class="value">62/99</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Posted ✓</h3>
+                    <div class="value">21/99</div>
+                </div>
+            </div>
+            <div class="progress-section">
+                <h3>Overall Progress (90%)</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill">90%</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; display: none;" id="picInputDiv">
+                <label style="display: block; margin-bottom: 10px; font-weight: 600;">Enter Story Numbers:</label>
+                <input type="text" id="picStoryInput" placeholder="e.g., 49 or 55-60" style="width: 200px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                <button onclick="startGeneratePictures()" style="margin-left: 10px; padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Generate</button>
+            </div>
+
+            <div class="scan-progress" id="scanProgress">
+                <h3>Scanning for New Files</h3>
+                <div class="progress-bar-scan">
+                    <div class="progress-fill-scan" id="scanProgressBar">0%</div>
+                </div>
+                <div class="scan-message" id="scanMessage">Starting...</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Story Name</th>
+                            <th>Keywords</th>
+                            <th title="Text File">Text</th>
+                            <th>Words</th>
+                            <th title="JSON">JSON</th>
+                            <th title="Audio">Audio</th>
+                            <th>Sec</th>
+                            <th title="Picture">Pic</th>
+                            <th title="Video">Video</th>
+                            <th title="Caption">Cap</th>
+                            <th title="Posted">Post</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td class="name">The Brave Knight and the Golden Dragon</td>
+                        <td class="keywords">dragon, sword, knight</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">667</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">219</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="The Brave Knight and the Golden Dragon" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td class="name">Lucy's Sweet Adventure with Her Best Friend</td>
+                        <td class="keywords">girl, dog, ice cream</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">961</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">338</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Lucy's Sweet Adventure with Her Best Friend" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td class="name">The Frog's Royal Secret</td>
+                        <td class="keywords">frog, princess, prince</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">470</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">148</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="The Frog's Royal Secret" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td class="name">The Fox and the Forest Friends</td>
+                        <td class="keywords">fox, flower, squirel</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">358</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">117</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="The Fox and the Forest Friends" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td class="name">The Magic in the Puddle</td>
+                        <td class="keywords">kid, shoe, puddle</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">367</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">116</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="The Magic in the Puddle" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td class="name">The Lion and Zebra by the River</td>
+                        <td class="keywords">lion, zebra, river</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">403</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">129</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="The Lion and Zebra by the River" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">7</td>
+                        <td class="name">The Brave Dragon's Sparkly Quest</td>
+                        <td class="keywords">brave little dragon, magical forest, shiny treasure</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">435</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">146</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="The Brave Dragon's Sparkly Quest" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">8</td>
+                        <td class="name">Bunny's Rainbow River Adventure</td>
+                        <td class="keywords">curious bunny, rainbow river, talking flowers</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">432</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">143</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Bunny's Rainbow River Adventure" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">9</td>
+                        <td class="name">Robot's Midnight Moon Cookie Party</td>
+                        <td class="keywords">friendly robot, starry night, moon cookies</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">413</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">139</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Robot's Midnight Moon Cookie Party" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">10</td>
+                        <td class="name">The Mermaid and the Coral Kingdom</td>
+                        <td class="keywords">little mermaid, underwater castle, colorful coral</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">449</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">152</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="The Mermaid and the Coral Kingdom" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">11</td>
+                        <td class="name">Fox's Secret Forest Path</td>
+                        <td class="keywords">clever fox, whispering woods, hidden path</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">430</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">139</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Fox's Secret Forest Path" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">12</td>
+                        <td class="name">Penguin's Snowy Castle Games</td>
+                        <td class="keywords">playful penguin, ice castle, snowball fight</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">427</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">150</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Penguin's Snowy Castle Games" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">13</td>
+                        <td class="name">Unicorn's Rainbow Bridge Journey</td>
+                        <td class="keywords">magic unicorn, cloud castle, rainbow bridge</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">466</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">151</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Unicorn's Rainbow Bridge Journey" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">14</td>
+                        <td class="name">Astronaut_s_Little_Red_Planet_Pal</td>
+                        <td class="keywords">tiny astronaut, red planet, martian friends</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">391</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">128</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Astronaut_s_Little_Red_Planet_Pal" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">15</td>
+                        <td class="name">Bird_s_Golden_Garden_Song</td>
+                        <td class="keywords">singing bird, golden cage, enchanted garden</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">413</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">133</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Bird_s_Golden_Garden_Song" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">16</td>
+                        <td class="name">Giant_s_Tickly_Cloud_Adventure</td>
+                        <td class="keywords">jolly giant, beanstalk village, ticklish clouds</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">382</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">123</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Giant_s_Tickly_Cloud_Adventure" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">17</td>
+                        <td class="name">Turtle_s_Sparkly_Shell_Secret</td>
+                        <td class="keywords">shy turtle, ocean waves, shiny shell</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">391</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">131</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Turtle_s_Sparkly_Shell_Secret" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">18</td>
+                        <td class="name">Knight_and_the_Friendly_Dragon</td>
+                        <td class="keywords">brave knight, fire-breathing dragon, shining armor</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">417</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">140</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Knight_and_the_Friendly_Dragon" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">19</td>
+                        <td class="name">Witch_s_Pumpkin_Broomstick_Race</td>
+                        <td class="keywords">little witch, broomstick race, pumpkin patch</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">402</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">135</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Witch_s_Pumpkin_Broomstick_Race" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">20</td>
+                        <td class="name">Kitten_s_Magic_Box_Surprise</td>
+                        <td class="keywords">curious kitten, mysterious box, yarn ball adventure</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">396</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">132</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Kitten_s_Magic_Box_Surprise" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">21</td>
+                        <td class="name">Monkey_s_Banana_Jungle_Party</td>
+                        <td class="keywords">cheerful monkey, jungle swing, banana feast</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">350</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">116</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Monkey_s_Banana_Jungle_Party" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">22</td>
+                        <td class="name">Bear_s_Sweet_Honey_Dreams</td>
+                        <td class="keywords">sleepy bear, honey tree, dreamy meadow</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">394</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">132</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Bear_s_Sweet_Honey_Dreams" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">23</td>
+                        <td class="name">Fairy_s_Dewdrop_Butterfly_Dance</td>
+                        <td class="keywords">tiny fairy, dew drop castle, butterfly wings</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">385</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">128</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button active" data-story="Fairy_s_Dewdrop_Butterfly_Dance" onclick="toggleInstaPost(this)" >✓ Posted</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">24</td>
+                        <td class="name">Lion_s_Brave_Echo_Cave</td>
+                        <td class="keywords">brave lion, courage cave, roaring echo</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">377</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">120</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Lion_s_Brave_Echo_Cave" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">25</td>
+                        <td class="name">Owl_s_Starry_Night_Library</td>
+                        <td class="keywords">smart owl, night library, star books</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">386</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">130</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Owl_s_Starry_Night_Library" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">26</td>
+                        <td class="name">Elephant_s_Big_Splash_River_Day</td>
+                        <td class="keywords">little elephant, jungle river, splashing fun</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">377</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">126</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Elephant_s_Big_Splash_River_Day" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">27</td>
+                        <td class="name">Deer_s_Gentle_Forest_Secret</td>
+                        <td class="keywords">gentle deer, whispering wind, ancient oak</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">388</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">136</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Deer_s_Gentle_Forest_Secret" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">28</td>
+                        <td class="name">Dolphin_s_Sparkly_Treasure_Reef</td>
+                        <td class="keywords">playful dolphin, ocean waves, treasure reef</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">388</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">122</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Dolphin_s_Sparkly_Treasure_Reef" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">29</td>
+                        <td class="name">Puppy_s_Rainbow_Friendship_Bone</td>
+                        <td class="keywords">magic puppy, rainbow collar, friendship bone</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">399</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">132</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Puppy_s_Rainbow_Friendship_Bone" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">30</td>
+                        <td class="name">Hedgehog_s_Cozy_Leaf_Nest</td>
+                        <td class="keywords">cozy hedgehog, warm blanket, autumn leaves</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">357</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">122</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Hedgehog_s_Cozy_Leaf_Nest" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">31</td>
+                        <td class="name">Pirate_s_Glowing_Island_Quest</td>
+                        <td class="keywords">little pirate, wooden ship, glowing island</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">372</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">131</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Pirate_s_Glowing_Island_Quest" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">32</td>
+                        <td class="name">Butterfly_s_Flower_Meadow_Party</td>
+                        <td class="keywords">kind butterfly, flower meadow, pollen party</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">383</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">123</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Butterfly_s_Flower_Meadow_Party" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">33</td>
+                        <td class="name">Beaver_s_Big_River_Dam</td>
+                        <td class="keywords">brave beaver, wooden dam, rushing river</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">391</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">120</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Beaver_s_Big_River_Dam" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">34</td>
+                        <td class="name">Octopus_s_Silly_Ocean_Circus</td>
+                        <td class="keywords">silly octopus, eight arms, ocean circus</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">354</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">114</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Octopus_s_Silly_Ocean_Circus" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">35</td>
+                        <td class="name">Mouse_s_Cheesy_Castle_Quest</td>
+                        <td class="keywords">tiny mouse, cheese castle, quiet adventure</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">372</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">120</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Mouse_s_Cheesy_Castle_Quest" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">36</td>
+                        <td class="name">Snowman_s_Magical_Winter_Day</td>
+                        <td class="keywords">sparkly snowman, winter wonderland, carrot nose</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">385</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">138</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Snowman_s_Magical_Winter_Day" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">37</td>
+                        <td class="name">Ghost_s_Friendly_Moonlight_Dance</td>
+                        <td class="keywords">friendly ghost, haunted attic, moonlight dance</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">381</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">124</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Ghost_s_Friendly_Moonlight_Dance" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">38</td>
+                        <td class="name">Kangaroo_s_Starry_Desert_Jump</td>
+                        <td class="keywords">little kangaroo, jumping pouch, desert stars</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">340</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">110</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Kangaroo_s_Starry_Desert_Jump" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">39</td>
+                        <td class="name">Caterpillar_s_Butterfly_Dream</td>
+                        <td class="keywords">magic caterpillar, leaf blanket, butterfly dream</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">377</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">128</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Caterpillar_s_Butterfly_Dream" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">40</td>
+                        <td class="name">Squirrel_s_Hidden_Acorn_Treasure</td>
+                        <td class="keywords">curious squirrel, acorn treasure, nutty forest</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">394</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">128</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Squirrel_s_Hidden_Acorn_Treasure" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">41</td>
+                        <td class="name">Seahorse_s_Bubble_Kingdom</td>
+                        <td class="keywords">brave seahorse, coral kingdom, ocean bubbles</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">373</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">118</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Seahorse_s_Bubble_Kingdom" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">42</td>
+                        <td class="name">Lamb_s_Fluffy_Cloud_Nap</td>
+                        <td class="keywords">sweet lamb, fluffy cloud, gentle meadow</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">354</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">115</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Lamb_s_Fluffy_Cloud_Nap" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">43</td>
+                        <td class="name">Robot_Dog_s_Starry_Chase</td>
+                        <td class="keywords">little robot dog, battery moon, star chase</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">359</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">111</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Robot_Dog_s_Starry_Chase" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">44</td>
+                        <td class="name">Whale_s_Starfish_Ocean_Song</td>
+                        <td class="keywords">whimsical whale, ocean song, starfish friends</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">352</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">121</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Whale_s_Starfish_Ocean_Song" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">45</td>
+                        <td class="name">Panda_s_Bamboo_Rolling_Adventure</td>
+                        <td class="keywords">playful panda, bamboo forest, rolling hills</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">372</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">124</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Panda_s_Bamboo_Rolling_Adventure" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">46</td>
+                        <td class="name">Firefly_s_Magical_Forest_Glow</td>
+                        <td class="keywords">tiny firefly, night lantern, forest glow</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">354</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">116</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Firefly_s_Magical_Forest_Glow" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">47</td>
+                        <td class="name">Crow_s_Sparkly_Pebble_Nest</td>
+                        <td class="keywords">clever crow, shiny pebble, treasure nest</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">379</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">129</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Crow_s_Sparkly_Pebble_Nest" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">48</td>
+                        <td class="name">Koala_s_Cozy_Tree_Dream</td>
+                        <td class="keywords">kind koala, eucalyptus tree, dreamy branch</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">376</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">123</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Koala_s_Cozy_Tree_Dream" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">49</td>
+                        <td class="name">Zebra_s_Sunny_Striped_Day</td>
+                        <td class="keywords">little zebra, striped adventure, savanna sun</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">358</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">113</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Zebra_s_Sunny_Striped_Day" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">50</td>
+                        <td class="name">Badger_s_Crystal_Tunnel_Quest</td>
+                        <td class="keywords">brave badger, underground tunnel, star crystals</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">400</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">127</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Badger_s_Crystal_Tunnel_Quest" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">51</td>
+                        <td class="name">Snail_s_Leaf_Umbrella_Race</td>
+                        <td class="keywords">silly snail, slow race, leaf umbrella</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">382</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">125</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Snail_s_Leaf_Umbrella_Race" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">52</td>
+                        <td class="name">Reindeer_s_Sparkly_Sleigh_Ride</td>
+                        <td class="keywords">magic reindeer, northern lights, sleigh bells</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">402</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">131</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Reindeer_s_Sparkly_Sleigh_Ride" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">53</td>
+                        <td class="name">Crab_s_Sandy_Castle_Kingdom</td>
+                        <td class="keywords">curious crab, sandy castle, ocean waves</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">377</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">123</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Crab_s_Sandy_Castle_Kingdom" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">54</td>
+                        <td class="name">Giraffe_s_Tall_Tree_Adventure</td>
+                        <td class="keywords">gentle giraffe, tall trees, leaf snacks</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">388</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">126</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Giraffe_s_Tall_Tree_Adventure" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">55</td>
+                        <td class="name">Bee_s_Sweet_Flower_Garden</td>
+                        <td class="keywords">little bee, honey hive, flower garden</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">380</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">125</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Bee_s_Sweet_Flower_Garden" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">56</td>
+                        <td class="name">Bunny_s_Carrot_Castle_Quest</td>
+                        <td class="keywords">brave bunny, rabbit hole, carrot castle</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">417</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">140</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Bunny_s_Carrot_Castle_Quest" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">57</td>
+                        <td class="name">Starfish_s_Moonlit_Ocean_Dance</td>
+                        <td class="keywords">sparkly starfish, ocean floor, moon tide</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">403</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">134</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Starfish_s_Moonlit_Ocean_Dance" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">58</td>
+                        <td class="name">Owl_Family_s_Starry_Bedtime</td>
+                        <td class="keywords">cozy owl family, nest bedtime, star stories</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">400</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">134</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Owl_Family_s_Starry_Bedtime" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">59</td>
+                        <td class="name">Parrot_s_Jungle_Joke_Party</td>
+                        <td class="keywords">playful parrot, colorful feathers, jungle jokes</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">397</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">133</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Parrot_s_Jungle_Joke_Party" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">60</td>
+                        <td class="name">Tiger_s_Brave_Stripe_Adventure</td>
+                        <td class="keywords">tiny tiger, courage stripes, jungle roar</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">423</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">139</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Tiger_s_Brave_Stripe_Adventure" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">61</td>
+                        <td class="name">Frog_s_Rainy_Lily_Pad_Song</td>
+                        <td class="keywords">friendly frog, lily pad pond, rainy song</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">395</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">127</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Frog_s_Rainy_Lily_Pad_Song" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">62</td>
+                        <td class="name">Hippo's Big Muddy Splash</td>
+                        <td class="keywords">little hippo, muddy river, splashy fun</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">394</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">133</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Hippo's Big Muddy Splash" onclick="toggleInstaPost(this)" >Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">63</td>
+                        <td class="name">Mushroom's Fairy Dotty Home</td>
+                        <td class="keywords">magic mushroom, forest fairy, dotty house</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">367</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">113</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Mushroom's Fairy Dotty Home" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">64</td>
+                        <td class="name">Sloth's Lazy Leaf Swing</td>
+                        <td class="keywords">sweet sloth, slow swing, leaf hammock</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">358</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">119</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Sloth's Lazy Leaf Swing" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">65</td>
+                        <td class="name">Butterfly's Courage Wings</td>
+                        <td class="keywords">brave butterfly, caterpillar courage, wings of light</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">362</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">125</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Butterfly's Courage Wings" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">66</td>
+                        <td class="name">Camel's Starry Desert Oasis</td>
+                        <td class="keywords">curious camel, desert oasis, star dunes</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">409</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">133</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Camel's Starry Desert Oasis" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">67</td>
+                        <td class="name">Jellyfish's Glowy Tentacle Dance</td>
+                        <td class="keywords">jolly jellyfish, ocean glow, tentacle dance</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">393</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">132</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Jellyfish's Glowy Tentacle Dance" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">68</td>
+                        <td class="name">Lambkin's Woolly Meadow Dream</td>
+                        <td class="keywords">little lambkin, woolly cloud, meadow dreams</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">375</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">123</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Lambkin's Woolly Meadow Dream" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">69</td>
+                        <td class="name">Spider's Dewdrop Web Castle</td>
+                        <td class="keywords">smart spider, silky web, dew drop castle</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">379</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">127</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Spider's Dewdrop Web Castle" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">70</td>
+                        <td class="name">Polar Bear's Snowflake Slide</td>
+                        <td class="keywords">playful polar bear, icy slide, snowflake friends</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">423</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">135</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Polar Bear's Snowflake Slide" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">71</td>
+                        <td class="name">Tortoise's Ancient Shell Tale</td>
+                        <td class="keywords">tiny tortoise, slow journey, ancient shell</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">395</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">124</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Tortoise's Ancient Shell Tale" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">72</td>
+                        <td class="name">Kangaroo's Starry Pouch Ride</td>
+                        <td class="keywords">kind kangaroo pouch, baby adventure, starry jump</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">383</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">121</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Kangaroo's Starry Pouch Ride" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">73</td>
+                        <td class="name">Mole's Sparkly Crystal Cave</td>
+                        <td class="keywords">magic mole, underground glow, crystal cave</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">393</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">127</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Mole's Sparkly Crystal Cave" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">74</td>
+                        <td class="name">Chipmunk's Acorn Forest Race</td>
+                        <td class="keywords">cheerful chipmunk, acorn race, forest fun</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">400</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">132</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Chipmunk's Acorn Forest Race" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">75</td>
+                        <td class="name">Baby Dragon's First Cloud Flight</td>
+                        <td class="keywords">brave baby dragon, first flight, cloud castle</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">437</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">138</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Baby Dragon's First Cloud Flight" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">76</td>
+                        <td class="name">Seal's Bouncy Beach Ball Day</td>
+                        <td class="keywords">silly seal, beach ball, ocean bounce</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">361</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">123</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Seal's Bouncy Beach Ball Day" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">77</td>
+                        <td class="name">Ladybug's Spotty Flower Home</td>
+                        <td class="keywords">little ladybug, spotty wings, flower house</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">389</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">127</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Ladybug's Spotty Flower Home" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">78</td>
+                        <td class="name">Gorilla's Big Banana Hug</td>
+                        <td class="keywords">gentle gorilla, jungle hug, banana bunch</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">420</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">141</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Gorilla's Big Banana Hug" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">79</td>
+                        <td class="name">Seagull's Shiny Shell Quest</td>
+                        <td class="keywords">sparkly seagull, coastal wind, shell treasure</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">435</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">140</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Seagull's Shiny Shell Quest" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">80</td>
+                        <td class="name">Caterpillar's Leafy Surprise</td>
+                        <td class="keywords">curious caterpillar, leaf tunnel, butterfly surprise</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">364</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">114</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Caterpillar's Leafy Surprise" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">81</td>
+                        <td class="name">Raccoon's Moonlit Forest Mask</td>
+                        <td class="keywords">cozy raccoon, moon mask, forest night</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">414</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">137</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Raccoon's Moonlit Forest Mask" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">82</td>
+                        <td class="name">Beetle's Leafy Knight Adventure</td>
+                        <td class="keywords">brave beetle, shiny armor, leaf knight</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">419</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">140</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Beetle's Leafy Knight Adventure" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">83</td>
+                        <td class="name">Platypus's Bill River Games</td>
+                        <td class="keywords">playful platypus, river bill, duck-billed fun</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">424</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">143</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Platypus's Bill River Games" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">84</td>
+                        <td class="name">Termite's Tiny Wooden Castle</td>
+                        <td class="keywords">tiny termite, wooden castle, tunnel friends</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">417</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">148</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Termite's Tiny Wooden Castle" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">85</td>
+                        <td class="name">Meerkat's Sunset Desert Watch</td>
+                        <td class="keywords">magic meerkat, desert watch, sunset lookout</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">402</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">123</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Meerkat's Sunset Desert Watch" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">86</td>
+                        <td class="name">Swan's Graceful Feather Lake</td>
+                        <td class="keywords">sweet swan, graceful lake, feather dance</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">370</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">122</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Swan's Graceful Feather Lake" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">87</td>
+                        <td class="name">Lynx's Soft Snowy Whisper</td>
+                        <td class="keywords">little lynx, soft paws, snowy whisper</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">394</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">127</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Lynx's Soft Snowy Whisper" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">88</td>
+                        <td class="name">Flamingo's Pink Lake Dance</td>
+                        <td class="keywords">friendly flamingo, pink lake, one-leg stand</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">393</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">131</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Flamingo's Pink Lake Dance" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">89</td>
+                        <td class="name">Bat's Starry Night Fruit</td>
+                        <td class="keywords">brave bat, night wings, star fruit</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">386</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">118</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Bat's Starry Night Fruit" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">90</td>
+                        <td class="name">Chameleon's Leafy Color Hide</td>
+                        <td class="keywords">curious chameleon, color change, leaf hide</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">365</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">122</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Chameleon's Leafy Color Hide" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">91</td>
+                        <td class="name">Jaguar's Spotted Jungle Roar</td>
+                        <td class="keywords">jolly jaguar, spotted jungle, roar party</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">379</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">119</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Jaguar's Spotted Jungle Roar" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">92</td>
+                        <td class="name">Cat's Moonlight Whisker Dream</td>
+                        <td class="keywords">cozy cat, whisker dream, moon yarn</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">396</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">132</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Cat's Moonlight Whisker Dream" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">93</td>
+                        <td class="name">Toadstool's Fairy Ring Home</td>
+                        <td class="keywords">tiny toadstool, fairy ring, mushroom house</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">391</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">125</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Toadstool's Fairy Ring Home" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">94</td>
+                        <td class="name">Bear Cub's First Honey Trail</td>
+                        <td class="keywords">brave bear cub, first honey, forest trail</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">424</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">131</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Bear Cub's First Honey Trail" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">95</td>
+                        <td class="name">Puffin's Cliffside Fish Adventure</td>
+                        <td class="keywords">playful puffin, cliff nest, ocean fish</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">379</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">126</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Puffin's Cliffside Fish Adventure" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">96</td>
+                        <td class="name">Moth's Moonlit Garden Wings</td>
+                        <td class="keywords">magic moth, moonlight wings, night garden</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">376</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">130</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Moth's Moonlit Garden Wings" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">97</td>
+                        <td class="name">Kiwi's Starry Fruit Night</td>
+                        <td class="keywords">kind kiwi, brown feathers, star fruit</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">398</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">127</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Kiwi's Starry Fruit Night" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">98</td>
+                        <td class="name">Spider Monkey's Giggle Swing</td>
+                        <td class="keywords">silly spider monkey, swinging tail, jungle giggle</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">408</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">124</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Spider Monkey's Giggle Swing" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    <tr>
+                        <td class="num">99</td>
+                        <td class="name">Gazelle's Graceful Savanna Wind</td>
+                        <td class="keywords">gentle gazelle, graceful run, savanna wind</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">398</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="status-cell" style="color: #28a745;">✓</td>
+                        <td class="center">127</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="status-cell" style="color: #ccc;">○</td>
+                        <td class="center"><button class="insta-button " data-story="Gazelle's Graceful Savanna Wind" onclick="toggleInstaPost(this)" disabled>Post</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function toggleInstaPost(button) {
+            if (button.classList.contains('active')) {
+                return;
+            }
+
+            const storyName = button.getAttribute('data-story');
+            button.disabled = true;
+            button.textContent = 'Updating...';
+
+            try {
+                const response = await fetch('/api/update-insta-post', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({story_name: storyName})
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    button.classList.add('active');
+                    button.textContent = '✓ Posted';
+                } else {
+                    button.textContent = 'Error';
+                    button.disabled = false;
+                    setTimeout(() => button.textContent = 'Post', 2000);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                button.textContent = 'Failed';
+                button.disabled = false;
+                setTimeout(() => button.textContent = 'Post', 2000);
+            }
+        }
+
+        let progressInterval = null;
+
+        async function scanForNewFiles() {
+            const btn = document.getElementById('scanBtn');
+            const progressDiv = document.getElementById('scanProgress');
+
+            btn.classList.add('scanning');
+            btn.disabled = true;
+            btn.textContent = '⏳ Scanning...';
+            progressDiv.classList.add('visible');
+
+            try {
+                const response = await fetch('/api/scan-new-files', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}
+                });
+
+                if (response.ok) {
+                    // Start polling for progress
+                    pollScanProgress(btn, progressDiv);
+                } else {
+                    btn.textContent = '🔄 Scan for New Files';
+                    btn.disabled = false;
+                    btn.classList.remove('scanning');
+                    progressDiv.classList.remove('visible');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                btn.textContent = '🔄 Scan for New Files';
+                btn.disabled = false;
+                btn.classList.remove('scanning');
+                progressDiv.classList.remove('visible');
+            }
+        }
+
+        async function pollScanProgress(btn, progressDiv) {
+            progressInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('/api/scan-progress');
+                    const progress = await response.json();
+
+                    const progressBar = document.getElementById('scanProgressBar');
+                    const message = document.getElementById('scanMessage');
+
+                    progressBar.style.width = progress.percent + '%';
+                    progressBar.textContent = progress.percent + '%';
+                    message.textContent = progress.message;
+
+                    if (progress.status === 'complete' || progress.status === 'error') {
+                        clearInterval(progressInterval);
+
+                        if (progress.status === 'complete') {
+                            btn.textContent = '✓ Done! Refreshing...';
+                            setTimeout(() => location.reload(), 2000);
+                        } else {
+                            btn.textContent = '🔄 Scan for New Files';
+                            btn.disabled = false;
+                            btn.classList.remove('scanning');
+                            setTimeout(() => progressDiv.classList.remove('visible'), 2000);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error polling progress:', error);
+                }
+            }, 300);
+        }
+
+        async function wordCountAndJson() {
+            const btn = document.getElementById('wordBtn');
+            const progressDiv = document.getElementById('scanProgress');
+
+            btn.classList.add('scanning');
+            btn.disabled = true;
+            btn.textContent = '⏳ Processing...';
+            progressDiv.classList.add('visible');
+
+            try {
+                const response = await fetch('/api/word-count-json', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}
+                });
+
+                if (response.ok) {
+                    pollWordCountProgress(btn, progressDiv);
+                } else {
+                    btn.textContent = '📝 Word Count & JSON';
+                    btn.disabled = false;
+                    btn.classList.remove('scanning');
+                    progressDiv.classList.remove('visible');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                btn.textContent = '📝 Word Count & JSON';
+                btn.disabled = false;
+                btn.classList.remove('scanning');
+                progressDiv.classList.remove('visible');
+            }
+        }
+
+        async function pollWordCountProgress(btn, progressDiv) {
+            let pollInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('/api/word-count-progress');
+                    const progress = await response.json();
+
+                    const progressBar = document.getElementById('scanProgressBar');
+                    const message = document.getElementById('scanMessage');
+
+                    progressBar.style.width = progress.percent + '%';
+                    progressBar.textContent = progress.percent + '%';
+                    message.textContent = progress.message;
+
+                    if (progress.status === 'complete' || progress.status === 'error') {
+                        clearInterval(pollInterval);
+
+                        if (progress.status === 'complete') {
+                            btn.textContent = '✓ Done! Refreshing...';
+                            setTimeout(() => location.reload(), 2000);
+                        } else {
+                            btn.textContent = '📝 Word Count & JSON';
+                            btn.disabled = false;
+                            btn.classList.remove('scanning');
+                            setTimeout(() => progressDiv.classList.remove('visible'), 2000);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error polling:', error);
+                }
+            }, 300);
+        }
+
+        async function generateAudio() {
+            const btn = document.getElementById('audioBtn');
+            const progressDiv = document.getElementById('scanProgress');
+
+            btn.classList.add('scanning');
+            btn.disabled = true;
+            btn.textContent = '⏳ Processing...';
+            progressDiv.classList.add('visible');
+
+            try {
+                const response = await fetch('/api/audio-generation', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}
+                });
+
+                if (response.ok) {
+                    pollAudioProgress(btn, progressDiv);
+                } else {
+                    btn.textContent = '🎵 Generate Audio';
+                    btn.disabled = false;
+                    btn.classList.remove('scanning');
+                    progressDiv.classList.remove('visible');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                btn.textContent = '🎵 Generate Audio';
+                btn.disabled = false;
+                btn.classList.remove('scanning');
+                progressDiv.classList.remove('visible');
+            }
+        }
+
+        async function pollAudioProgress(btn, progressDiv) {
+            let pollInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('/api/audio-progress');
+                    const progress = await response.json();
+
+                    const progressBar = document.getElementById('scanProgressBar');
+                    const message = document.getElementById('scanMessage');
+
+                    progressBar.style.width = progress.percent + '%';
+                    progressBar.textContent = progress.percent + '%';
+                    message.textContent = progress.message;
+
+                    if (progress.status === 'complete' || progress.status === 'error') {
+                        clearInterval(pollInterval);
+
+                        if (progress.status === 'complete') {
+                            btn.textContent = '✓ Done! Refreshing...';
+                            setTimeout(() => location.reload(), 2000);
+                        } else {
+                            btn.textContent = '🎵 Generate Audio';
+                            btn.disabled = false;
+                            btn.classList.remove('scanning');
+                            setTimeout(() => progressDiv.classList.remove('visible'), 2000);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error polling:', error);
+                }
+            }, 300);
+        }
+
+        async function generatePictures() {
+            const picInputDiv = document.getElementById('picInputDiv');
+            if (picInputDiv.style.display === 'none' || picInputDiv.style.display === '') {
+                picInputDiv.style.display = 'block';
+                document.getElementById('picStoryInput').focus();
+            } else {
+                picInputDiv.style.display = 'none';
+            }
+        }
+
+        async function startGeneratePictures() {
+            const inputField = document.getElementById('picStoryInput');
+            const storyInput = inputField.value.trim();
+
+            if (!storyInput) {
+                alert('Please enter a story number or range (e.g., "49" or "55-60")');
+                return;
+            }
+
+            const btn = document.getElementById('picBtn');
+            const progressDiv = document.getElementById('scanProgress');
+
+            btn.classList.add('scanning');
+            btn.disabled = true;
+            btn.textContent = '⏳ Generating...';
+            progressDiv.classList.add('visible');
+            document.getElementById('picInputDiv').style.display = 'none';
+
+            try {
+                const response = await fetch('/api/generate-pictures', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({story_input: storyInput})
+                });
+
+                if (response.ok) {
+                    pollPicProgress(btn, progressDiv, storyInput);
+                } else {
+                    btn.textContent = '🖼️ Generate Pics';
+                    btn.disabled = false;
+                    btn.classList.remove('scanning');
+                    progressDiv.classList.remove('visible');
+                    document.getElementById('picInputDiv').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                btn.textContent = '🖼️ Generate Pics';
+                btn.disabled = false;
+                btn.classList.remove('scanning');
+                progressDiv.classList.remove('visible');
+                document.getElementById('picInputDiv').style.display = 'block';
+            }
+        }
+
+        async function pollPicProgress(btn, progressDiv, storyInput) {
+            let pollInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('/api/pic-progress');
+                    const progress = await response.json();
+
+                    const progressBar = document.getElementById('scanProgressBar');
+                    const message = document.getElementById('scanMessage');
+
+                    progressBar.style.width = progress.percent + '%';
+                    progressBar.textContent = progress.percent + '%';
+                    message.textContent = progress.message;
+
+                    if (progress.status === 'complete' || progress.status === 'error') {
+                        clearInterval(pollInterval);
+
+                        if (progress.status === 'complete') {
+                            btn.textContent = '✓ Done! Refreshing...';
+                            setTimeout(() => location.reload(), 2000);
+                        } else {
+                            btn.textContent = '🖼️ Generate Pics';
+                            btn.disabled = false;
+                            btn.classList.remove('scanning');
+                            document.getElementById('picInputDiv').style.display = 'block';
+                            setTimeout(() => progressDiv.classList.remove('visible'), 2000);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error polling:', error);
+                }
+            }, 300);
+        }
+
+        async function generateVideo() {
+            const btn = document.getElementById('videoBtn');
+            const progressDiv = document.getElementById('scanProgress');
+
+            btn.classList.add('scanning');
+            btn.disabled = true;
+            btn.textContent = '⏳ Processing...';
+            progressDiv.classList.add('visible');
+
+            try {
+                const response = await fetch('/api/video-generation', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}
+                });
+
+                if (response.ok) {
+                    pollVideoProgress(btn, progressDiv);
+                } else {
+                    btn.textContent = '🎬 Generate Videos';
+                    btn.disabled = false;
+                    btn.classList.remove('scanning');
+                    progressDiv.classList.remove('visible');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                btn.textContent = '🎬 Generate Videos';
+                btn.disabled = false;
+                btn.classList.remove('scanning');
+                progressDiv.classList.remove('visible');
+            }
+        }
+
+        async function pollVideoProgress(btn, progressDiv) {
+            let pollInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('/api/video-progress');
+                    const progress = await response.json();
+
+                    const progressBar = document.getElementById('scanProgressBar');
+                    const message = document.getElementById('scanMessage');
+
+                    progressBar.style.width = progress.percent + '%';
+                    progressBar.textContent = progress.percent + '%';
+                    message.textContent = progress.message;
+
+                    if (progress.status === 'complete' || progress.status === 'error') {
+                        clearInterval(pollInterval);
+
+                        if (progress.status === 'complete') {
+                            btn.textContent = '✓ Done! Refreshing...';
+                            setTimeout(() => location.reload(), 2000);
+                        } else {
+                            btn.textContent = '🎬 Generate Videos';
+                            btn.disabled = false;
+                            btn.classList.remove('scanning');
+                            setTimeout(() => progressDiv.classList.remove('visible'), 2000);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error polling:', error);
+                }
+            }, 300);
+        }
+    </script>
+</body>
+</html>

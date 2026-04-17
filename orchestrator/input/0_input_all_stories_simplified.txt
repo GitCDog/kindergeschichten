@@ -1,0 +1,36 @@
+numbering,keyword1,keyword2,keyword3,story_name
+
+66,curious camel,desert oasis,star dunes,Camel's Starry Desert Oasis
+67,jolly jellyfish,ocean glow,tentacle dance,Jellyfish's Glowy Tentacle Dance
+68,little lambkin,woolly cloud,meadow dreams,Lambkin's Woolly Meadow Dream
+69,smart spider,silky web,dew drop castle,Spider's Dewdrop Web Castle
+70,playful polar bear,icy slide,snowflake friends,Polar Bear's Snowflake Slide
+71,tiny tortoise,slow journey,ancient shell,Tortoise's Ancient Shell Tale
+72,kind kangaroo pouch,baby adventure,starry jump,Kangaroo's Starry Pouch Ride
+73,magic mole,underground glow,crystal cave,Mole's Sparkly Crystal Cave
+74,cheerful chipmunk,acorn race,forest fun,Chipmunk's Acorn Forest Race
+75,brave baby dragon,first flight,cloud castle,Baby Dragon's First Cloud Flight
+76,silly seal,beach ball,ocean bounce,Seal's Bouncy Beach Ball Day
+77,little ladybug,spotty wings,flower house,Ladybug's Spotty Flower Home
+78,gentle gorilla,jungle hug,banana bunch,Gorilla's Big Banana Hug
+79,sparkly seagull,coastal wind,shell treasure,Seagull's Shiny Shell Quest
+80,curious caterpillar,leaf tunnel,butterfly surprise,Caterpillar's Leafy Surprise
+81,cozy raccoon,moon mask,forest night,Raccoon's Moonlit Forest Mask
+82,brave beetle,shiny armor,leaf knight,Beetle's Leafy Knight Adventure
+83,playful platypus,river bill,duck-billed fun,Platypus's Bill River Games
+84,tiny termite,wooden castle,tunnel friends,Termite's Tiny Wooden Castle
+85,magic meerkat,desert watch,sunset lookout,Meerkat's Sunset Desert Watch
+86,sweet swan,graceful lake,feather dance,Swan's Graceful Feather Lake
+87,little lynx,soft paws,snowy whisper,Lynx's Soft Snowy Whisper
+88,friendly flamingo,pink lake,one-leg stand,Flamingo's Pink Lake Dance
+89,brave bat,night wings,star fruit,Bat's Starry Night Fruit
+90,curious chameleon,color change,leaf hide,Chameleon's Leafy Color Hide
+91,jolly jaguar,spotted jungle,roar party,Jaguar's Spotted Jungle Roar
+92,cozy cat,whisker dream,moon yarn,Cat's Moonlight Whisker Dream
+93,tiny toadstool,fairy ring,mushroom house,Toadstool's Fairy Ring Home
+94,brave bear cub,first honey,forest trail,Bear Cub's First Honey Trail
+95,playful puffin,cliff nest,ocean fish,Puffin's Cliffside Fish Adventure
+96,magic moth,moonlight wings,night garden,Moth's Moonlit Garden Wings
+97,kind kiwi,brown feathers,star fruit,Kiwi's Starry Fruit Night
+98,silly spider monkey,swinging tail,jungle giggle,Spider Monkey's Giggle Swing
+99,gentle gazelle,graceful run,savanna wind,Gazelle's Graceful Savanna Wind

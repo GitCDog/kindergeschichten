@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(sed:*)",
+      "Bash(taskkill /F /IM \"python.exe\" /C \"dashboard_api.py\")",
+      "Bash(taskkill /F /FI \"WINDOWTITLE eq *dashboard_api*\")",
+      "Bash(taskkill /F /IM \"python.exe\")"
+    ]
+  }
+}

@@ -1,0 +1,100 @@
+numbering,keyword1,keyword2,keyword3,story_name,status_story_json,status_audio,status_video
+1,dragon,sword,knight,The Brave Knight and the Golden Dragon,processed,processed,processed
+2,girl,dog,ice cream,Lucy's Sweet Adventure with Her Best Friend,processed,pending,pending
+3,frog,princess,prince,The Frog's Royal Secret,processed,pending,pending
+4,fox,flower,squirel,The Fox and the Forest Friends,processed,processed,processed
+5,kid,shoe,puddle,The Magic in the Puddle,processed,pending,pending
+6,lion,zebra,river,The Lion and Zebra by the River,pending,pending,pending
+7,brave little dragon,magical forest,shiny treasure,The Brave Dragon's Sparkly Quest,pending,pending,pending
+8,curious bunny,rainbow river,talking flowers,Bunny's Rainbow River Adventure,pending,pending,pending
+9,friendly robot,starry night,moon cookies,Robot's Midnight Moon Cookie Party,pending,pending,pending
+10,little mermaid,underwater castle,colorful coral,The Mermaid and the Coral Kingdom,pending,pending,pending
+11,clever fox,whispering woods,hidden path,Fox's Secret Forest Path,pending,pending,pending
+12,playful penguin,ice castle,snowball fight,Penguin's Snowy Castle Games,pending,pending,pending
+13,magic unicorn,cloud castle,rainbow bridge,Unicorn's Rainbow Bridge Journey,pending,pending,pending
+14,tiny astronaut,red planet,martian friends,Astronaut's Little Red Planet Pal,pending,pending,pending
+15,singing bird,golden cage,enchanted garden,Bird's Golden Garden Song,pending,pending,pending
+16,jolly giant,beanstalk village,ticklish clouds,Giant's Tickly Cloud Adventure,pending,pending,pending
+17,shy turtle,ocean waves,shiny shell,Turtle's Sparkly Shell Secret,pending,pending,pending
+18,brave knight,fire-breathing dragon,shining armor,Knight and the Friendly Dragon,pending,pending,pending
+19,little witch,broomstick race,pumpkin patch,Witch's Pumpkin Broomstick Race,pending,pending,pending
+20,curious kitten,mysterious box,yarn ball adventure,Kitten's Magic Box Surprise,pending,pending,pending
+21,cheerful monkey,jungle swing,banana feast,Monkey's Banana Jungle Party,pending,pending,pending
+22,sleepy bear,honey tree,dreamy meadow,Bear's Sweet Honey Dreams,pending,pending,pending
+23,tiny fairy,dew drop castle,butterfly wings,Fairy's Dewdrop Butterfly Dance,pending,pending,pending
+24,brave lion,courage cave,roaring echo,Lion's Brave Echo Cave,pending,pending,pending
+25,smart owl,night library,star books,Owl's Starry Night Library,pending,pending,pending
+26,little elephant,jungle river,splashing fun,Elephant's Big Splash River Day,pending,pending,pending
+27,gentle deer,whispering wind,ancient oak,Deer's Gentle Forest Secret,pending,pending,pending
+28,playful dolphin,ocean waves,treasure reef,Dolphin's Sparkly Treasure Reef,pending,pending,pending
+29,magic puppy,rainbow collar,friendship bone,Puppy's Rainbow Friendship Bone,pending,pending,pending
+30,cozy hedgehog,warm blanket,autumn leaves,Hedgehog's Cozy Leaf Nest,pending,pending,pending
+31,little pirate,wooden ship,glowing island,Pirate's Glowing Island Quest,pending,pending,pending
+32,kind butterfly,flower meadow,pollen party,Butterfly's Flower Meadow Party,pending,pending,pending
+33,brave beaver,wooden dam,rushing river,Beaver's Big River Dam,pending,pending,pending
+34,silly octopus,eight arms,ocean circus,Octopus's Silly Ocean Circus,pending,pending,pending
+35,tiny mouse,cheese castle,quiet adventure,Mouse's Cheesy Castle Quest,pending,pending,pending
+36,sparkly snowman,winter wonderland,carrot nose,Snowman's Magical Winter Day,pending,pending,pending
+37,friendly ghost,haunted attic,moonlight dance,Ghost's Friendly Moonlight Dance,pending,pending,pending
+38,little kangaroo,jumping pouch,desert stars,Kangaroo's Starry Desert Jump,pending,pending,pending
+39,magic caterpillar,leaf blanket,butterfly dream,Caterpillar's Butterfly Dream,pending,pending,pending
+40,curious squirrel,acorn treasure,nutty forest,Squirrel's Hidden Acorn Treasure,pending,pending,pending
+41,brave seahorse,coral kingdom,ocean bubbles,Seahorse's Bubble Kingdom,pending,pending,pending
+42,sweet lamb,fluffy cloud,gentle meadow,Lamb's Fluffy Cloud Nap,pending,pending,pending
+43,little robot dog,battery moon,star chase,Robot Dog's Starry Chase,pending,pending,pending
+44,whimsical whale,ocean song,starfish friends,Whale's Starfish Ocean Song,pending,pending,pending
+45,playful panda,bamboo forest,rolling hills,Panda's Bamboo Rolling Adventure,pending,pending,pending
+46,tiny firefly,night lantern,forest glow,Firefly's Magical Forest Glow,pending,pending,pending
+47,clever crow,shiny pebble,treasure nest,Crow's Sparkly Pebble Nest,pending,pending,pending
+48,kind koala,eucalyptus tree,dreamy branch,Koala's Cozy Tree Dream,pending,pending,pending
+49,little zebra,striped adventure,savanna sun,Zebra's Sunny Striped Day,pending,pending,pending
+50,brave badger,underground tunnel,star crystals,Badger's Crystal Tunnel Quest,pending,pending,pending
+51,silly snail,slow race,leaf umbrella,Snail's Leaf Umbrella Race,pending,pending,pending
+52,magic reindeer,northern lights,sleigh bells,Reindeer's Sparkly Sleigh Ride,pending,pending,pending
+53,curious crab,sandy castle,ocean waves,Crab's Sandy Castle Kingdom,pending,pending,pending
+54,gentle giraffe,tall trees,leaf snacks,Giraffe's Tall Tree Adventure,pending,pending,pending
+55,little bee,honey hive,flower garden,Bee's Sweet Flower Garden,pending,pending,pending
+56,brave bunny,rabbit hole,carrot castle,Bunny's Carrot Castle Quest,pending,pending,pending
+57,sparkly starfish,ocean floor,moon tide,Starfish's Moonlit Ocean Dance,pending,pending,pending
+58,cozy owl family,nest bedtime,star stories,Owl Family's Starry Bedtime,pending,pending,pending
+59,playful parrot,colorful feathers,jungle jokes,Parrot's Jungle Joke Party,pending,pending,pending
+60,tiny tiger,courage stripes,jungle roar,Tiger's Brave Stripe Adventure,pending,pending,pending
+61,friendly frog,lily pad pond,rainy song,Frog's Rainy Lily Pad Song,pending,pending,pending
+62,little hippo,muddy river,splashy fun,Hippo's Big Muddy Splash,pending,pending,pending
+63,magic mushroom,forest fairy,dotty house,Mushroom's Fairy Dotty Home,pending,pending,pending
+64,sweet sloth,slow swing,leaf hammock,Sloth's Lazy Leaf Swing,pending,pending,pending
+65,brave butterfly,caterpillar courage,wings of light,Butterfly's Courage Wings,pending,pending,pending
+66,curious camel,desert oasis,star dunes,Camel's Starry Desert Oasis,pending,pending,pending
+67,jolly jellyfish,ocean glow,tentacle dance,Jellyfish's Glowy Tentacle Dance,pending,pending,pending
+68,little lambkin,woolly cloud,meadow dreams,Lambkin's Woolly Meadow Dream,pending,pending,pending
+69,smart spider,silky web,dew drop castle,Spider's Dewdrop Web Castle,pending,pending,pending
+70,playful polar bear,icy slide,snowflake friends,Polar Bear's Snowflake Slide,pending,pending,pending
+71,tiny tortoise,slow journey,ancient shell,Tortoise's Ancient Shell Tale,pending,pending,pending
+72,kind kangaroo pouch,baby adventure,starry jump,Kangaroo's Starry Pouch Ride,pending,pending,pending
+73,magic mole,underground glow,crystal cave,Mole's Sparkly Crystal Cave,pending,pending,pending
+74,cheerful chipmunk,acorn race,forest fun,Chipmunk's Acorn Forest Race,pending,pending,pending
+75,brave baby dragon,first flight,cloud castle,Baby Dragon's First Cloud Flight,pending,pending,pending
+76,silly seal,beach ball,ocean bounce,Seal's Bouncy Beach Ball Day,pending,pending,pending
+77,little ladybug,spotty wings,flower house,Ladybug's Spotty Flower Home,pending,pending,pending
+78,gentle gorilla,jungle hug,banana bunch,Gorilla's Big Banana Hug,pending,pending,pending
+79,sparkly seagull,coastal wind,shell treasure,Seagull's Shiny Shell Quest,pending,pending,pending
+80,curious caterpillar,leaf tunnel,butterfly surprise,Caterpillar's Leafy Surprise,pending,pending,pending
+81,cozy raccoon,moon mask,forest night,Raccoon's Moonlit Forest Mask,pending,pending,pending
+82,brave beetle,shiny armor,leaf knight,Beetle's Leafy Knight Adventure,pending,pending,pending
+83,playful platypus,river bill,duck-billed fun,Platypus's Bill River Games,pending,pending,pending
+84,tiny termite,wooden castle,tunnel friends,Termite's Tiny Wooden Castle,pending,pending,pending
+85,magic meerkat,desert watch,sunset lookout,Meerkat's Sunset Desert Watch,pending,pending,pending
+86,sweet swan,graceful lake,feather dance,Swan's Graceful Feather Lake,pending,pending,pending
+87,little lynx,soft paws,snowy whisper,Lynx's Soft Snowy Whisper,pending,pending,pending
+88,friendly flamingo,pink lake,one-leg stand,Flamingo's Pink Lake Dance,pending,pending,pending
+89,brave bat,night wings,star fruit,Bat's Starry Night Fruit,pending,pending,pending
+90,curious chameleon,color change,leaf hide,Chameleon's Leafy Color Hide,pending,pending,pending
+91,jolly jaguar,spotted jungle,roar party,Jaguar's Spotted Jungle Roar,pending,pending,pending
+92,cozy cat,whisker dream,moon yarn,Cat's Moonlight Whisker Dream,pending,pending,pending
+93,tiny toadstool,fairy ring,mushroom house,Toadstool's Fairy Ring Home,pending,pending,pending
+94,brave bear cub,first honey,forest trail,Bear Cub's First Honey Trail,pending,pending,pending
+95,playful puffin,cliff nest,ocean fish,Puffin's Cliffside Fish Adventure,pending,pending,pending
+96,magic moth,moonlight wings,night garden,Moth's Moonlit Garden Wings,pending,pending,pending
+97,kind kiwi,brown feathers,star fruit,Kiwi's Starry Fruit Night,pending,pending,pending
+98,silly spider monkey,swinging tail,jungle giggle,Spider Monkey's Giggle Swing,pending,pending,pending
+99,gentle gazelle,graceful run,savanna wind,Gazelle's Graceful Savanna Wind,pending,pending,pending

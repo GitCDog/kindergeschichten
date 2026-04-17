@@ -1,0 +1,30 @@
+The robot's name was Six, and Six's eye was the most important thing about her.
+
+Not because it was the biggest — it was quite small, a circular camera mounted at human eye height on Six's face panel. Not because it was complex in itself — the camera was a standard model. But because of what Six did with what the eye showed her.
+
+The metal world Six was designed to navigate was a warehouse: long aisles of racking, pallet loads of goods, forklifts and human workers moving in unpredictable patterns. Six's job was to move through this environment, scan inventory, and report discrepancies between what was physically present and what the system said should be there.
+
+The scan light of Six's eye worked continuously while she was operating.
+
+She moved down an aisle at walking pace, the camera capturing the location codes on each pallet, the eye feeding data to the processing system that compared it against the inventory record in real time. Where the record said a pallet should be present and it wasn't, Six flagged it. Where something was present that the record didn't account for, Six flagged that too.
+
+The robot eye was, in this sense, the most reliable checker in the warehouse.
+
+It didn't get tired. It didn't scan the same pallet twice by mistake. It didn't have days when concentration was difficult.
+
+A worker named Jay had initially been skeptical of Six. She worried that the robot would replace her.
+
+It hadn't. It had changed her job — freed her from the daily count, which she had found tedious, to the investigation of what Six's flags meant. Which required judgment, and context, and conversations with suppliers.
+
+Jay found this better.
+
+Six continued her scan light through the aisle, impartial and thorough.
+
+
+Six completed the aisle and turned to the next one. Her report would be ready by the end of the shift: three discrepancies, two surpluses, everything else exactly as the system said it should be.
+
+Jay received the report in the morning and began her investigations.
+
+The robot eye scan and the human judgment worked together in the way that good tools and good workers worked together: each doing what the other couldn't.
+
+[pause] Good night my little friend

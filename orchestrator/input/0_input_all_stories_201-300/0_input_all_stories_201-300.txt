@@ -1,0 +1,101 @@
+numbering,keyword1,keyword2,keyword3,story_name
+201,brave cloud rider,sky kingdom,wind path,Cloud Rider's Sky Path Quest
+202,curious candy dragon,sugar cave,sweet treasure,Candy Dragon's Sweet Cave
+203,playful paper plane,wind race,school yard,Paper Plane's Big Race
+204,little clock elf,time forest,ticking trees,Clock Elf's Ticking Forest
+205,cheerful ice cube,summer day,melting race,Ice Cube's Sunny Escape
+206,magic rainbow brush,color world,paint splash,Rainbow Brush Color Adventure
+207,tiny star seed,night sky,glow journey,Star Seed's Night Glow
+208,brave pillow knight,dream land,soft armor,Pillow Knight's Dream Quest
+209,silly sock monster,lost laundry,drawer cave,Sock Monster's Laundry Adventure
+210,kind snowflake,winter sky,icy dance,Snowflake's Winter Dance
+211,curious marble,rolling hill,toy land,Marble's Rolling Adventure
+212,little shadow friend,light game,wall world,Shadow Friend's Wall Game
+213,friendly toaster,breakfast town,bread jump,Toaster's Breakfast Jump
+214,tiny bubble,soap world,air float,Bubble's Floating Journey
+215,brave toy soldier,playroom war,block castle,Toy Soldier's Block Castle
+216,playful kite string,wind pull,sky dance,Kite String's Sky Dance
+217,curious crayon,color box,art land,Crayon's Color Box Journey
+218,magic story book,hidden pages,word world,Story Book's Hidden World
+219,little music note,sound river,melody path,Music Note's Melody Path
+220,cheerful cookie crumb,bakery floor,sweet trail,Cookie Crumb's Sweet Trail
+221,brave flashlight,dark cave,light beam,Flashlight's Bright Cave
+222,tiny raindrop,cloud fall,water slide,Raindrop's Water Slide
+223,silly balloon,air trip,party sky,Balloon's Party Flight
+224,curious pencil tip,school desk,idea spark,Pencil Tip's Idea Spark
+225,friendly backpack,travel day,school trip,Backpack's School Trip
+226,magic compass,north quest,hidden map,Compass North Quest
+227,little feather,wind ride,soft landing,Feather's Wind Ride
+228,brave candle flame,dark room,light fight,Candle Flame's Light Fight
+229,playful rubber duck,bath sea,foam waves,Rubber Duck's Bath Adventure
+230,curious snow globe,mini world,shake magic,Snow Globe's Tiny World
+231,tiny bell,ring sound,holiday cheer,Bell's Holiday Ring
+232,cheerful paint drop,canvas jump,color splash,Paint Drop Splash Story
+233,brave ladder climber,high wall,sky reach,Ladder Climber's Sky Reach
+234,silly hat parade,fashion lane,fun walk,Hat Parade Fun Walk
+235,curious key,lost door,secret lock,Key's Secret Door
+236,friendly blanket,cozy night,star nap,Blanket's Cozy Star Night
+237,magic lantern,glow path,night guide,Lantern's Night Guide
+238,little drum beat,music march,rhythm road,Drum Beat's Rhythm Road
+239,brave mirror reflection,glass world,copy quest,Mirror Reflection Quest
+240,playful slipper,house run,soft chase,Slipper's Soft Chase
+241,curious puzzle piece,missing spot,fit search,Puzzle Piece Search
+242,tiny whistle,sound call,echo hill,Whistle's Echo Call
+243,cheerful button coat,thread town,stitch fun,Button Coat Stitch Tale
+244,brave umbrella,rain storm,wind fight,Umbrella's Storm Battle
+245,silly spoon,bowl slide,kitchen fun,Spoon's Kitchen Slide
+246,curious magnet,metal land,pull power,Magnet's Pull Power Tale
+247,friendly calendar,day count,time story,Calendar's Time Story
+248,magic hourglass,sand fall,time magic,Hourglass Time Magic
+249,little backpack zipper,open close,secret pocket,Zipper's Secret Pocket
+250,brave notebook,blank pages,story quest,Notebook's Story Quest
+251,playful eraser,clean swipe,redo fun,Eraser's Redo Adventure
+252,curious chalk,sidewalk art,color street,Chalk's Street Art Story
+253,tiny bookmark,page saver,reading world,Bookmark's Reading World
+254,cheerful lunchbox,snack time,food friends,Lunchbox Snack Friends
+255,brave skateboard,wheel spin,park tricks,Skateboard Park Adventure
+256,silly glove pair,winter play,snow toss,Glove Pair Snow Day
+257,curious doorbell,ring tone,visitor tale,Doorbell Visitor Story
+258,friendly pillow fort,hideout game,secret base,Pillow Fort Secret Base
+259,magic toy train,track world,journey ride,Toy Train Journey
+260,little flashlight beam,night search,hidden toy,Flashlight Beam Search
+261,brave alarm clock,wake mission,morning race,Alarm Clock Race
+262,playful curtain,window dance,wind play,Curtain Wind Dance
+263,curious sticker,wall trip,travel mark,Sticker Wall Adventure
+264,tiny marble bag,game set,friend play,Marble Bag Game Day
+265,cheerful swing set,park joy,sky push,Swing Set Sky Ride
+266,brave treehouse,wood ladder,forest watch,Treehouse Forest Watch
+267,silly sandbox,castle build,grain world,Sandbox Castle World
+268,curious telescope,star watch,night view,Telescope Star Watch
+269,friendly bicycle,road ride,park loop,Bicycle Park Loop
+270,magic paintbrush,art magic,shape world,Paintbrush Shape World
+271,little drumstick,beat tap,music joy,Drumstick Beat Joy
+272,brave whistle blower,team call,game start,Whistle Game Start
+273,playful hopscotch,jump game,number path,Hopscotch Number Path
+274,curious firefly jar,light catch,night glow,Firefly Jar Glow
+275,tiny music box,soft tune,spin dance,Music Box Spin Dance
+276,cheerful cupcake,sprinkle top,bakery joy,Cupcake Sprinkle Joy
+277,brave ice skater,frozen lake,glide path,Ice Skater Glide
+278,silly snowman hat,winter wind,hat chase,Snowman Hat Chase
+279,curious comet,space trail,star dash,Comet Star Dash
+280,friendly robot toy,gear spin,play friend,Robot Toy Friend
+281,magic wand stick,spell spark,light trick,Wand Stick Magic
+282,little fairy door,tree base,secret home,Fairy Door Secret Home
+283,brave dragon kite,sky fight,wind race,Dragon Kite Sky Race
+284,playful jungle vine,swing path,green ride,Jungle Vine Swing
+285,curious river stone,water flow,smooth path,River Stone Journey
+286,tiny sandcastle,beach world,wave test,Sandcastle Wave Test
+287,cheerful seashell,ocean whisper,beach song,Seashell Ocean Song
+288,brave pirate flag,ship mast,wind roar,Pirate Flag Roar
+289,silly parrot hat,feather fun,talk game,Parrot Hat Talk Game
+290,curious treasure map,x mark,hidden gold,Treasure Map Gold Quest
+291,friendly lighthouse,shore guide,beam light,Lighthouse Guide Story
+292,magic ocean bottle,message float,sea travel,Ocean Bottle Message
+293,little dolphin splash,water jump,sea play,Dolphin Splash Day
+294,brave shark scout,deep sea,swift swim,Shark Scout Swim
+295,playful crab dance,side step,beach fun,Crab Dance Party
+296,curious turtle shell,ocean ride,slow travel,Turtle Shell Journey
+297,tiny wave ripple,sea motion,shore touch,Wave Ripple Touch
+298,cheerful sunbeam,sky light,warm hug,Sunbeam Warm Hug
+299,brave moonlight,night glow,dream watch,Moonlight Dream Watch
+300,curious star cluster,galaxy map,space wonder,Star Cluster Wonder

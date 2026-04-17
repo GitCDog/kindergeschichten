@@ -1,0 +1,6 @@
+numbering,story_name
+1,The Brave Knight and the Golden Dragon
+2,Lucy's Sweet Adventure with Her Best Friend
+3,The Frog's Royal Secret
+4,The Fox and the Forest Friends
+5,The Magic in the Puddle
