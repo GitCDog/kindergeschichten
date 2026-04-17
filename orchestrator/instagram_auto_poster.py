@@ -304,10 +304,29 @@ class InstagramAutoPoser:
 
             logger.info(f"[+] Container created: {creation_id}")
 
-            # Step 2: Wait for Instagram to process the video
-            logger.info("[*] Waiting 20 seconds for Instagram to process video...")
+            # Step 2: Poll media status until FINISHED
+            logger.info("[*] Polling media status (waiting for Instagram to process video)...")
             import time
-            time.sleep(20)
+            max_attempts = 12  # 12 * 10 seconds = 120 seconds max wait
+            attempt = 0
+
+            while attempt < max_attempts:
+                time.sleep(10)
+                attempt += 1
+
+                status_url = f"https://graph.instagram.com/v18.0/{creation_id}"
+                status_response = requests.get(status_url, params={"fields": "status", "access_token": self.instagram_access_token}, timeout=30)
+
+                if status_response.status_code == 200:
+                    status_data = status_response.json()
+                    media_status = status_data.get("status")
+                    logger.info(f"[*] Status: {media_status} (attempt {attempt}/{max_attempts})")
+
+                    if media_status == "FINISHED":
+                        logger.info(f"[+] Media processing complete!")
+                        break
+                else:
+                    logger.warning(f"[!] Could not check status: {status_response.text}")
 
             # Step 3: Publish container
             logger.info("[*] Publishing media to Instagram...")
