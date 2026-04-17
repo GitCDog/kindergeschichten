@@ -1,7 +1,7 @@
 numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_json,status_audio,seconds,status_picture,status_video,status_caption,insta_post
 1,dragon,sword,knight,The Brave Knight and the Golden Dragon,X,667,O,X,219,X,X,O,X
 2,girl,dog,ice cream,Lucy's Sweet Adventure with Her Best Friend,X,961,O,X,338,X,X,O,X
-3,frog,princess,prince,The Frog's Royal Secret,X,470,O,X,148,X,X,O,X
+3,frog,princess,prince,The Frog's Royal Secret,X,470,O,X,148,X,X,O,O
 4,fox,flower,squirel,The Fox and the Forest Friends,X,358,X,X,117,X,X,O,X
 5,kid,shoe,puddle,The Magic in the Puddle,X,367,X,X,116,X,X,O,X
 6,lion,zebra,river,The Lion and Zebra by the River,X,403,X,X,129,X,X,O,X
