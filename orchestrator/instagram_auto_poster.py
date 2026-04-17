@@ -8,6 +8,8 @@ Schedule: Daily at 17:55 CET using Claude Routines
 
 import os
 import json
+import csv
+import io
 import random
 import logging
 import requests
@@ -16,7 +18,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 import cloudinary
 import cloudinary.api
-from input_file_manager import InputFileManager
 
 # Optional GitHub integration
 try:
@@ -54,7 +55,7 @@ class InstagramAutoPoser:
         self.cloudinary_api_secret = os.getenv("CLOUDINARY_API_SECRET")
 
         # Instagram/Meta config
-        self.instagram_business_account_id = os.getenv("INSTAGRAM_BUSINESS_ACCOUNT_ID")
+        self.instagram_recipient_id = os.getenv("INSTAGRAM_RECIPIENT_ID")
         self.instagram_access_token = os.getenv("INSTAGRAM_ACCESS_TOKEN")
 
         # GitHub config (optional)
@@ -66,8 +67,8 @@ class InstagramAutoPoser:
         # Validate credentials
         if not self.cloudinary_cloud_name:
             raise ValueError("CLOUDINARY_CLOUD_NAME not found in .env")
-        if not self.instagram_business_account_id:
-            raise ValueError("INSTAGRAM_BUSINESS_ACCOUNT_ID not found in .env")
+        if not self.instagram_recipient_id:
+            raise ValueError("INSTAGRAM_RECIPIENT_ID not found in .env")
         if not self.instagram_access_token:
             raise ValueError("INSTAGRAM_ACCESS_TOKEN not found in .env")
 
@@ -87,11 +88,38 @@ class InstagramAutoPoser:
             except Exception as e:
                 logger.warning(f"[!] GitHub initialization failed: {e}")
                 self.use_github = False
-
-        # CSV input file manager
-        self.manager = InputFileManager()
+        else:
+            raise ValueError("GitHub integration is REQUIRED for cloud execution. Set GITHUB_TOKEN and GITHUB_REPO in .env")
 
         logger.info("[+] InstagramAutoPoser initialized successfully")
+
+    def _read_input_file_from_github(self):
+        """
+        Read input file from GitHub and parse CSV rows.
+        Returns list of dictionaries with row data, or empty list on error.
+        """
+        try:
+            if not self.github:
+                logger.error("[-] GitHub not initialized")
+                return []
+
+            logger.info("[*] Reading input file from GitHub...")
+            repo = self.github.get_repo(self.github_repo)
+
+            file_path = "orchestrator/input/0_input_all_stories.txt"
+            file = repo.get_contents(file_path)
+            content = file.decoded_content.decode('utf-8')
+
+            # Parse CSV
+            reader = csv.DictReader(io.StringIO(content))
+            rows = list(reader)
+
+            logger.info(f"[+] Read {len(rows)} rows from GitHub")
+            return rows
+
+        except Exception as e:
+            logger.error(f"[-] Error reading input file from GitHub: {e}")
+            return []
 
     def get_next_video_from_cloudinary(self):
         """
@@ -107,10 +135,10 @@ class InstagramAutoPoser:
         try:
             logger.info("[*] Reading input file to find next unposted video...")
 
-            # Read input file to get sequential order
-            rows = self.manager.read_rows()
+            # Read input file from GitHub to get sequential order
+            rows = self._read_input_file_from_github()
             if not rows:
-                logger.warning("[-] No stories in input file")
+                logger.warning("[-] No stories in input file on GitHub")
                 return None
 
             # Find FIRST story with insta_post=O (in sequence)
@@ -251,7 +279,7 @@ class InstagramAutoPoser:
             logger.info("[*] Creating Instagram media container...")
 
             # Step 1: Create container
-            container_url = f"https://graph.instagram.com/v18.0/{self.instagram_business_account_id}/media"
+            container_url = f"https://graph.instagram.com/v18.0/{self.instagram_recipient_id}/media"
 
             container_payload = {
                 "access_token": self.instagram_access_token,
@@ -278,7 +306,7 @@ class InstagramAutoPoser:
 
             # Step 2: Publish container
             logger.info("[*] Publishing media to Instagram...")
-            publish_url = f"https://graph.instagram.com/v18.0/{self.instagram_business_account_id}/media_publish"
+            publish_url = f"https://graph.instagram.com/v18.0/{self.instagram_recipient_id}/media_publish"
 
             publish_payload = {
                 "access_token": self.instagram_access_token,
@@ -311,38 +339,24 @@ class InstagramAutoPoser:
 
     def log_posted_video(self, story_info, post_id):
         """
-        Record posted video and update input file to mark as posted.
-        Updates both local and GitHub files.
+        Record posted video and update GitHub files.
+        Everything syncs to GitHub for cloud execution.
         """
         try:
             story_name = story_info.get("story_name")
 
-            # 1. Update LOCAL input file
-            logger.info("[*] Updating local input file...")
+            # 1. Read current posted_videos.json from GitHub
+            logger.info("[*] Reading posted_videos.json from GitHub...")
+            repo = self.github.get_repo(self.github_repo)
+
+            file_path = "orchestrator/posted_videos.json"
             try:
-                rows = self.manager.read_rows()
-                updated = False
-                for row in rows:
-                    if row.get("story_name") == story_name:
-                        row["insta_post"] = "X"
-                        updated = True
-                        logger.info(f"[+] Set insta_post=X for {story_name}")
-                        break
-
-                if updated:
-                    self.manager.save_rows(rows, f"Posted to Instagram: {story_name}")
-                    logger.info(f"[+] Local input file updated")
-            except Exception as e:
-                logger.error(f"[-] Error updating local input file: {e}")
-
-            # 2. Update posted_videos.json
-            posted_file = Path("posted_videos.json")
-            if posted_file.exists():
-                with open(posted_file, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-            else:
+                file = repo.get_contents(file_path)
+                data = json.loads(file.decoded_content.decode('utf-8'))
+            except:
                 data = {"videos": []}
 
+            # 2. Add new entry
             new_entry = {
                 "numbering": story_info.get("numbering"),
                 "story_name": story_name,
@@ -351,16 +365,11 @@ class InstagramAutoPoser:
                 "cloudinary_url": story_info.get("url")
             }
             data["videos"].append(new_entry)
-
-            with open(posted_file, 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
-
             logger.info(f"[+] Posted video logged: {story_name}")
 
-            # 3. Update GitHub if configured
-            if self.use_github:
-                self._update_github_input_file(story_info)
-                self._update_github_posted_videos(data)
+            # 3. Update GitHub files
+            self._update_github_input_file(story_info)
+            self._update_github_posted_videos(data)
 
         except Exception as e:
             logger.error(f"[-] Error logging posted video: {e}")
@@ -448,32 +457,6 @@ class InstagramAutoPoser:
         except Exception as e:
             logger.error(f"[-] Error updating GitHub posted_videos: {e}")
 
-    def _get_posted_videos(self):
-        """Get list of already posted videos from posted_videos.json"""
-        try:
-            posted_file = Path("posted_videos.json")
-            if not posted_file.exists():
-                return []
-
-            with open(posted_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                return data.get("videos", [])
-
-        except Exception as e:
-            logger.warning(f"[!] Could not read posted_videos.json: {e}")
-            return []
-
-    def _get_story_info(self, story_name):
-        """Get story metadata from input CSV"""
-        try:
-            rows = self.manager.read_rows()
-            for row in rows:
-                if row.get("story_name") == story_name:
-                    return row
-            return None
-        except Exception as e:
-            logger.warning(f"[!] Could not get story info for '{story_name}': {e}")
-            return {}
 
     def get_random_posting_time(self):
         """
