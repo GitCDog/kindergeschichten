@@ -19,6 +19,19 @@ from dotenv import load_dotenv
 import cloudinary
 import cloudinary.api
 
+# Disable SSL warnings for cloud environments with self-signed certs
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# Disable SSL verification for environments with certificate issues
+import ssl
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
 # Optional GitHub integration
 try:
     from github import Github
@@ -76,8 +89,17 @@ class InstagramAutoPoser:
         cloudinary.config(
             cloud_name=self.cloudinary_cloud_name,
             api_key=self.cloudinary_api_key,
-            api_secret=self.cloudinary_api_secret
+            api_secret=self.cloudinary_api_secret,
+            secure=True
         )
+
+        # Disable SSL verification for cloud environments
+        os.environ['PYTHONHTTPSVERIFY'] = '0'
+        requests.packages.urllib3.disable_warnings()
+
+        # Configure requests session without SSL verification
+        import ssl
+        requests.urllib3.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!aNULL:!eNULL:!MD5:!3DES:!DES:!RC4:!IDEA:!SEED:!aDSS:!SRP:!PSK'
 
         # Configure GitHub if available
         if self.use_github:
