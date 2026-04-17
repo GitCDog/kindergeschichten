@@ -18,19 +18,14 @@ from pathlib import Path
 from dotenv import load_dotenv
 import cloudinary
 import cloudinary.api
+import cloudinary.api_client.call_api as _cloudinary_call_api
 
-# Disable SSL warnings for cloud environments with self-signed certs
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-# Disable SSL verification for environments with certificate issues
+# Disable SSL verification for environments with self-signed/proxy certs
 import ssl
-try:
-    _create_unverified_https_context = ssl._create_unverified_context
-except AttributeError:
-    pass
-else:
-    ssl._create_default_https_context = _create_unverified_https_context
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+ssl._create_default_https_context = ssl._create_unverified_context
 
 # Optional GitHub integration
 try:
@@ -90,21 +85,25 @@ class InstagramAutoPoser:
             cloud_name=self.cloudinary_cloud_name,
             api_key=self.cloudinary_api_key,
             api_secret=self.cloudinary_api_secret,
-            secure=True
+            secure=True,
+            api_proxy=None
         )
 
-        # Disable SSL verification for cloud environments
-        os.environ['PYTHONHTTPSVERIFY'] = '0'
-        requests.packages.urllib3.disable_warnings()
+        # Replace Cloudinary's module-level urllib3 connector with an unverified one
+        _no_ssl_pool = urllib3.PoolManager(cert_reqs='CERT_NONE', assert_hostname=False)
+        _cloudinary_call_api._http = _no_ssl_pool
 
-        # Configure requests session without SSL verification
-        import ssl
-        requests.urllib3.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!aNULL:!eNULL:!MD5:!3DES:!DES:!RC4:!IDEA:!SEED:!aDSS:!SRP:!PSK'
+        # Patch requests.Session globally so Cloudinary + other HTTP calls skip SSL verification
+        _orig_request = requests.Session.request
+        def _no_verify_request(self_s, *args, **kwargs):
+            kwargs['verify'] = False
+            return _orig_request(self_s, *args, **kwargs)
+        requests.Session.request = _no_verify_request
 
         # Configure GitHub if available
         if self.use_github:
             try:
-                self.github = Github(self.github_token)
+                self.github = Github(self.github_token, verify=False)
                 repo = self.github.get_repo(self.github_repo)
                 logger.info(f"[+] GitHub integration enabled: {self.github_repo}")
             except Exception as e:
