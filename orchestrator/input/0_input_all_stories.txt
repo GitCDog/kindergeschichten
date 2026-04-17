@@ -18,7 +18,7 @@ numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_
 17,shy turtle,ocean waves,shiny shell,Turtle_s_Sparkly_Shell_Secret,X,391,X,X,131,X,X,O,X
 18,brave knight,fire-breathing dragon,shining armor,Knight_and_the_Friendly_Dragon,X,417,X,X,140,X,X,O,X
 19,little witch,broomstick race,pumpkin patch,Witch_s_Pumpkin_Broomstick_Race,X,402,X,X,135,X,X,O,X
-20,curious kitten,mysterious box,yarn ball adventure,Kitten_s_Magic_Box_Surprise,X,396,X,X,132,X,X,O,O
+20,curious kitten,mysterious box,yarn ball adventure,Kitten_s_Magic_Box_Surprise,X,396,X,X,132,X,X,O,X
 21,cheerful monkey,jungle swing,banana feast,Monkey_s_Banana_Jungle_Party,X,350,X,X,116,X,X,O,O
 22,sleepy bear,honey tree,dreamy meadow,Bear_s_Sweet_Honey_Dreams,X,394,X,X,132,X,X,O,X
 23,tiny fairy,dew drop castle,butterfly wings,Fairy_s_Dewdrop_Butterfly_Dance,X,385,X,X,128,X,X,O,X
