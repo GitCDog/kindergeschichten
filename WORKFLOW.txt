@@ -1,0 +1,276 @@
+================================================================================
+KINDERGESCHICHTEN AUTOMATION - WORKFLOW FLOWCHART
+================================================================================
+
+                           📖 START: New Story
+                                    │
+                                    ▼
+                    ┌────────────────────────────────┐
+                    │  User adds row to CSV           │
+                    │  (numbering, keywords, name)   │
+                    └────────────────┬────────────────┘
+                                     │
+                                     ▼
+          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+          ┃           🔄 PHASE 1: SCAN FOR NEW FILES                    ┃
+          ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+          ┃  Button: 🔄 Scan for New Files                              ┃
+          ┃  Script: detect_register_generate.py                        ┃
+          ┃  Action: Auto-detects story files + generates names         ┃
+          ┃  Status: status_story=X                                     ┃
+          ┗━━━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                         │
+                         ▼
+          ┌─────────────────────────────────────────────────────┐
+          │ Story file exists? (input/{num}_{name}.txt)         │
+          └──────────────┬──────────────────────────────────────┘
+                    YES  │  NO
+               ┌─────────┘
+               │
+               ▼
+    ┌──────────────────────────────┐
+    │ File exists → use it         │
+    │ No file → skip (pre-written) │
+    └──────────────┬───────────────┘
+                   │
+                   ▼
+          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+          ┃           📝 PHASE 2: WORD COUNT & JSON                     ┃
+          ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+          ┃  Button: 📝 Word Count & JSON                               ┃
+          ┃  Script: word_count_and_json.py                            ┃
+          ┃  Input: input/{num}_{name}.txt (story text)                ┃
+          ┃  Output: output/{num}_{name}.json                          ┃
+          ┃  Checks: Word count 350-400 words ✓                        ┃
+          ┃  Status: status_story_json=X, words=385                    ┃
+          ┗━━━━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                          │
+                          ▼
+          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+          ┃           🎵 PHASE 3: GENERATE AUDIO                        ┃
+          ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+          ┃  Button: 🎵 Generate Audio                                  ┃
+          ┃  Script: audio_generator.py                                 ┃
+          ┃  API: ElevenLabs TTS (voice: tomasz_z)                      ┃
+          ┃  Input: input/{num}_{name}.txt                             ┃
+          ┃  Output: output/{num}_{name}.mp3                           ┃
+          ┃  Duration: auto-extracted (ffprobe)                        ┃
+          ┃  Status: status_audio=X, seconds=210                       ┃
+          ┗━━━━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                          │
+                          ▼
+          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+          ┃           🖼️  PHASE 4: GENERATE PICTURES                    ┃
+          ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+          ┃  Button: 🖼️ Generate Pics (enter: "49" or "55-60")          ┃
+          ┃  Script: generate_pictures.py                               ┃
+          ┃  API: OpenAI GPT Image (gpt-image-1)                        ┃
+          ┃  Size: 1024x1536 (vertical)                                 ┃
+          ┃  Quality: medium                                            ┃
+          ┃  Output: images/{num}.png                                   ┃
+          ┃  Status: status_picture=X                                   ┃
+          ┗━━━━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                          │
+                          ▼
+          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+          ┃           🎬 PHASE 5: GENERATE VIDEOS                       ┃
+          ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+          ┃  Button: 🎬 Generate Videos                                 ┃
+          ┃  Script: generate_videos_with_audio.py                      ┃
+          ┃  Requires:                                                  ┃
+          ┃   ✓ status_audio=X                                          ┃
+          ┃   ✓ status_picture=X                                        ┃
+          ┃   ✓ status_video=O                                          ┃
+          ┃  Tool: ffmpeg                                               ┃
+          ┃  Input: PNG image + MP3 audio                               ┃
+          ┃  Output: output/{num}_{name}_video.mp4                      ┃
+          ┃  Status: status_video=X                                     ┃
+          ┗━━━━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                          │
+        ┌─────────────────┴─────────────────┐
+        │    AUTO-ARCHIVE (NO USER ACTION)  │
+        ▼                                   ▼
+    JSON moved                          Audio moved
+    output/ → 1_insta_post_X/          output/ → 1_insta_post_X/
+        │                                   │
+        ├───────────────┬───────────────────┤
+        │               │                   │
+        ▼               │                   ▼
+    {num}_{name}.json   │           {num}_{name}.mp3
+        │               │                   │
+        └───────────────┼───────────────────┘
+                        │
+                        ▼
+        ┌──────────────────────────────────┐
+        │ Video STAYS in output/           │
+        │ (waiting for user to post)       │
+        └──────┬───────────────────────────┘
+               │
+               │ ⏳ WAITING FOR USER
+               │
+               ▼
+          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+          ┃           ✓ PHASE 6: POST TO INSTAGRAM                      ┃
+          ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+          ┃  Button: ✓ Post (per story in dashboard)                    ┃
+          ┃  Handler: dashboard_api.py                                  ┃
+          ┃  Action: Move video to 1_insta_post_X/                      ┃
+          ┃  Status: insta_post=X                                       ┃
+          ┗━━━━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                          │
+                          ▼
+        ┌──────────────────────────────────────┐
+        │  All files in 1_insta_post_X/:       │
+        │  ├─ {num}_{name}.json               │
+        │  ├─ {num}_{name}.mp3                │
+        │  └─ {num}_{name}_video.mp4  ✓       │
+        │                                      │
+        │  Ready for manual upload             │
+        │  to Instagram!                       │
+        └──────────────┬───────────────────────┘
+                       │
+                       ▼
+                    ✅ COMPLETE
+
+
+================================================================================
+CSV STATUS PROGRESSION
+================================================================================
+
+PHASE 1 (Scan):
+  status_story: O → X
+
+PHASE 2 (Word Count & JSON):
+  status_story_json: O → X
+  words: 0 → 385
+
+PHASE 3 (Audio):
+  status_audio: O → X
+  seconds: 0 → 210
+
+PHASE 4 (Pictures):
+  status_picture: O → X
+
+PHASE 5 (Videos):
+  status_video: O → X
+  ↓
+  AUTO-ARCHIVE JSON & AUDIO
+  ↓
+  (Video stays in output/)
+
+PHASE 6 (Post):
+  insta_post: O → X
+  ↓
+  Move video to 1_insta_post_X/
+
+
+================================================================================
+FILE MOVEMENT DIAGRAM
+================================================================================
+
+                          PHASE 1-4
+                        (Generation)
+                             │
+    ┌───────────────────────────────────────────┐
+    │ output/ folder (working directory)        │
+    ├───────────────────────────────────────────┤
+    │ ├─ {num}_{name}.json                      │
+    │ ├─ {num}_{name}.mp3                       │
+    │ └─ {num}_{name}_video.mp4                 │
+    └────────┬─────────────────────────────────┘
+             │
+         PHASE 5
+      Auto-Archive
+             │
+    ┌────────┴────────┐
+    │                 │
+    ▼                 ▼
+  JSON            Audio
+ MOVED           MOVED
+    │                 │
+    └────────┬────────┘
+             │
+    ┌────────▼──────────────────────────────────┐
+    │ 1_insta_post_X/ folder (archive)          │
+    ├───────────────────────────────────────────┤
+    │ ├─ {num}_{name}.json           ✓         │
+    │ └─ {num}_{name}.mp3            ✓         │
+    └───────────────────────────────────────────┘
+
+    output/ folder (still here)
+    ├─ {num}_{name}_video.mp4       ⏳ WAITING
+
+
+             PHASE 6
+          User clicks
+            "Post"
+             │
+             ▼
+
+    ┌───────────────────────────────────────────┐
+    │ 1_insta_post_X/ folder (complete)         │
+    ├───────────────────────────────────────────┤
+    │ ├─ {num}_{name}.json           ✓         │
+    │ ├─ {num}_{name}.mp3            ✓         │
+    │ └─ {num}_{name}_video.mp4      ✓ MOVED   │
+    └───────────────────────────────────────────┘
+
+              ✅ READY FOR UPLOAD
+
+
+================================================================================
+BUTTON CLICK ORDER
+================================================================================
+
+Step 1: 🔄 Scan for New Files
+        └─ Auto-detects new stories
+
+Step 2: 📝 Word Count & JSON
+        └─ Creates metadata
+
+Step 3: 🎵 Generate Audio
+        └─ Converts to MP3
+
+Step 4: 🖼️ Generate Pics
+        └─ Creates book covers (enter story numbers)
+
+Step 5: 🎬 Generate Videos
+        └─ Creates MP4 + archives JSON & audio
+
+Step 6: ✓ Post
+        └─ Move video + mark as posted
+
+================================================================================
+TYPICAL TIMING
+================================================================================
+
+🔄 Scan:      ~5-10 seconds
+📝 JSON:      <1 second per story
+🎵 Audio:     10-30 seconds per story
+🖼️ Pics:      20-60 seconds per story
+🎬 Videos:    5-15 seconds per story
+✓ Post:       <1 second per story
+
+TOTAL for 1 story (complete): ~2-3 minutes
+
+================================================================================
+REQUIREMENTS CHECK
+================================================================================
+
+Phase 3 (Audio) requires:
+  ✓ status_story_json=X
+
+Phase 4 (Pictures) requires:
+  (no prerequisites)
+
+Phase 5 (Videos) requires:
+  ✓ status_audio=X
+  ✓ status_picture=X
+  ✓ status_video=O
+  ✓ images/{num}.png exists
+
+Phase 6 (Post) requires:
+  ✓ status_video=X
+  ✓ insta_post=O
+
+================================================================================

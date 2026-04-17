@@ -1,0 +1,100 @@
+numbering,keywords,story_name,status_story,status_story_json,status_audio,status_video,status_caption,status_picture,words,seconds,insta_post,line_number
+1,"['dragon', 'sword', 'knight']",The Brave Knight and the Golden Dragon,X,O,X,X,O,X,667,219,X,1
+2,"['girl', 'dog', 'ice cream']",Lucy's Sweet Adventure with Her Best Friend,X,O,X,X,O,X,961,338,X,2
+3,"['frog', 'princess', 'prince']",The Frog's Royal Secret,X,O,X,X,O,X,470,148,X,3
+4,"['fox', 'flower', 'squirel']",The Fox and the Forest Friends,X,X,X,X,O,X,358,117,X,4
+5,"['kid', 'shoe', 'puddle']",The Magic in the Puddle,X,X,X,X,O,X,367,116,X,5
+6,"['lion', 'zebra', 'river']",The Lion and Zebra by the River,X,X,X,X,O,X,403,129,X,6
+7,"['brave little dragon', 'magical forest', 'shiny treasure']",The Brave Dragon's Sparkly Quest,X,X,X,X,O,X,435,146,X,7
+8,"['curious bunny', 'rainbow river', 'talking flowers']",Bunny's Rainbow River Adventure,X,X,X,X,O,X,432,143,X,8
+9,"['friendly robot', 'starry night', 'moon cookies']",Robot's Midnight Moon Cookie Party,X,X,X,X,O,X,413,139,X,9
+10,"['little mermaid', 'underwater castle', 'colorful coral']",The Mermaid and the Coral Kingdom,X,X,X,X,O,X,449,152,O,10
+11,"['clever fox', 'whispering woods', 'hidden path']",Fox's Secret Forest Path,X,X,X,X,O,X,430,139,O,11
+12,"['playful penguin', 'ice castle', 'snowball fight']",Penguin's Snowy Castle Games,X,X,X,X,O,X,427,150,O,12
+13,"['magic unicorn', 'cloud castle', 'rainbow bridge']",Unicorn's Rainbow Bridge Journey,X,O,X,X,O,X,466,151,O,13
+14,"['tiny astronaut', 'red planet', 'martian friends']",Astronaut_s_Little_Red_Planet_Pal,X,X,X,X,O,X,391,128,O,14
+15,"['singing bird', 'golden cage', 'enchanted garden']",Bird_s_Golden_Garden_Song,X,X,X,X,O,X,413,133,O,15
+16,"['jolly giant', 'beanstalk village', 'ticklish clouds']",Giant_s_Tickly_Cloud_Adventure,X,X,X,X,O,X,382,123,O,16
+17,"['shy turtle', 'ocean waves', 'shiny shell']",Turtle_s_Sparkly_Shell_Secret,X,X,X,X,O,X,391,131,O,17
+18,"['brave knight', 'fire-breathing dragon', 'shining armor']",Knight_and_the_Friendly_Dragon,X,X,X,X,O,X,417,140,O,18
+19,"['little witch', 'broomstick race', 'pumpkin patch']",Witch_s_Pumpkin_Broomstick_Race,X,X,X,X,O,X,402,135,O,19
+20,"['curious kitten', 'mysterious box', 'yarn ball adventure']",Kitten_s_Magic_Box_Surprise,X,X,X,X,O,X,396,132,O,20
+21,"['cheerful monkey', 'jungle swing', 'banana feast']",Monkey_s_Banana_Jungle_Party,X,X,X,X,O,X,350,116,O,21
+22,"['sleepy bear', 'honey tree', 'dreamy meadow']",Bear_s_Sweet_Honey_Dreams,X,X,X,X,O,X,394,132,O,22
+23,"['tiny fairy', 'dew drop castle', 'butterfly wings']",Fairy_s_Dewdrop_Butterfly_Dance,X,X,X,X,O,X,385,128,O,23
+24,"['brave lion', 'courage cave', 'roaring echo']",Lion_s_Brave_Echo_Cave,X,X,X,X,O,X,377,120,O,24
+25,"['smart owl', 'night library', 'star books']",Owl_s_Starry_Night_Library,X,X,X,X,O,X,386,130,O,25
+26,"['little elephant', 'jungle river', 'splashing fun']",Elephant_s_Big_Splash_River_Day,X,X,X,X,O,X,377,126,O,26
+27,"['gentle deer', 'whispering wind', 'ancient oak']",Deer_s_Gentle_Forest_Secret,X,X,X,X,O,X,388,136,O,27
+28,"['playful dolphin', 'ocean waves', 'treasure reef']",Dolphin_s_Sparkly_Treasure_Reef,X,X,X,X,O,X,388,122,O,28
+29,"['magic puppy', 'rainbow collar', 'friendship bone']",Puppy_s_Rainbow_Friendship_Bone,X,X,X,X,O,X,399,132,O,29
+30,"['cozy hedgehog', 'warm blanket', 'autumn leaves']",Hedgehog_s_Cozy_Leaf_Nest,X,X,X,X,O,X,357,122,O,30
+31,"['little pirate', 'wooden ship', 'glowing island']",Pirate_s_Glowing_Island_Quest,X,X,X,X,O,X,372,131,O,31
+32,"['kind butterfly', 'flower meadow', 'pollen party']",Butterfly_s_Flower_Meadow_Party,X,X,X,X,O,X,383,123,O,32
+33,"['brave beaver', 'wooden dam', 'rushing river']",Beaver_s_Big_River_Dam,X,X,X,X,O,X,391,120,O,33
+34,"['silly octopus', 'eight arms', 'ocean circus']",Octopus_s_Silly_Ocean_Circus,X,X,X,X,O,X,354,114,O,34
+35,"['tiny mouse', 'cheese castle', 'quiet adventure']",Mouse_s_Cheesy_Castle_Quest,X,X,X,X,O,X,372,120,O,35
+36,"['sparkly snowman', 'winter wonderland', 'carrot nose']",Snowman_s_Magical_Winter_Day,X,X,X,X,O,X,385,138,O,36
+37,"['friendly ghost', 'haunted attic', 'moonlight dance']",Ghost_s_Friendly_Moonlight_Dance,X,X,X,X,O,X,381,124,O,37
+38,"['little kangaroo', 'jumping pouch', 'desert stars']",Kangaroo_s_Starry_Desert_Jump,X,X,X,X,O,X,340,110,O,38
+39,"['magic caterpillar', 'leaf blanket', 'butterfly dream']",Caterpillar_s_Butterfly_Dream,X,X,X,O,O,X,377,128,O,39
+40,"['curious squirrel', 'acorn treasure', 'nutty forest']",Squirrel_s_Hidden_Acorn_Treasure,X,X,X,O,O,X,394,128,O,40
+41,"['brave seahorse', 'coral kingdom', 'ocean bubbles']",Seahorse_s_Bubble_Kingdom,X,X,X,O,O,X,373,118,O,41
+42,"['sweet lamb', 'fluffy cloud', 'gentle meadow']",Lamb_s_Fluffy_Cloud_Nap,X,X,X,O,O,X,354,115,O,42
+43,"['little robot dog', 'battery moon', 'star chase']",Robot_Dog_s_Starry_Chase,X,X,X,O,O,X,359,111,O,43
+44,"['whimsical whale', 'ocean song', 'starfish friends']",Whale_s_Starfish_Ocean_Song,X,X,X,O,O,O,352,121,O,44
+45,"['playful panda', 'bamboo forest', 'rolling hills']",Panda_s_Bamboo_Rolling_Adventure,X,X,X,O,O,O,372,124,O,45
+46,"['tiny firefly', 'night lantern', 'forest glow']",Firefly_s_Magical_Forest_Glow,X,X,X,O,O,O,354,116,O,46
+47,"['clever crow', 'shiny pebble', 'treasure nest']",Crow_s_Sparkly_Pebble_Nest,X,X,X,O,O,O,379,129,O,47
+48,"['kind koala', 'eucalyptus tree', 'dreamy branch']",Koala_s_Cozy_Tree_Dream,X,X,X,O,O,O,376,123,O,48
+49,"['little zebra', 'striped adventure', 'savanna sun']",Zebra_s_Sunny_Striped_Day,X,X,X,O,O,O,358,113,O,49
+50,"['brave badger', 'underground tunnel', 'star crystals']",Badger_s_Crystal_Tunnel_Quest,X,X,X,O,O,O,400,127,O,50
+51,"['silly snail', 'slow race', 'leaf umbrella']",Snail_s_Leaf_Umbrella_Race,X,X,X,O,O,O,382,125,O,51
+52,"['magic reindeer', 'northern lights', 'sleigh bells']",Reindeer_s_Sparkly_Sleigh_Ride,X,X,X,O,O,O,402,131,O,52
+53,"['curious crab', 'sandy castle', 'ocean waves']",Crab_s_Sandy_Castle_Kingdom,X,X,X,O,O,O,377,123,O,53
+54,"['gentle giraffe', 'tall trees', 'leaf snacks']",Giraffe_s_Tall_Tree_Adventure,X,X,X,O,O,O,388,126,O,54
+55,"['little bee', 'honey hive', 'flower garden']",Bee_s_Sweet_Flower_Garden,X,X,X,O,O,O,380,125,O,55
+56,"['brave bunny', 'rabbit hole', 'carrot castle']",Bunny_s_Carrot_Castle_Quest,X,X,X,O,O,O,417,140,O,56
+57,"['sparkly starfish', 'ocean floor', 'moon tide']",Starfish_s_Moonlit_Ocean_Dance,X,X,X,O,O,O,403,134,O,57
+58,"['cozy owl family', 'nest bedtime', 'star stories']",Owl_Family_s_Starry_Bedtime,X,X,X,O,O,O,400,134,O,58
+59,"['playful parrot', 'colorful feathers', 'jungle jokes']",Parrot_s_Jungle_Joke_Party,X,X,X,O,O,O,397,133,O,59
+60,"['tiny tiger', 'courage stripes', 'jungle roar']",Tiger_s_Brave_Stripe_Adventure,X,X,X,O,O,O,423,139,O,60
+61,"['friendly frog', 'lily pad pond', 'rainy song']",Frog_s_Rainy_Lily_Pad_Song,X,X,X,O,O,O,395,127,O,61
+62,"['little hippo', 'muddy river', 'splashy fun']",Hippo's Big Muddy Splash,X,X,X,O,O,O,394,133,O,62
+63,"['magic mushroom', 'forest fairy', 'dotty house']",Mushroom's Fairy Dotty Home,X,X,X,O,O,O,367,113,O,63
+64,"['sweet sloth', 'slow swing', 'leaf hammock']",Sloth's Lazy Leaf Swing,X,X,X,O,O,O,358,119,O,64
+65,"['brave butterfly', 'caterpillar courage', 'wings of light']",Butterfly's Courage Wings,X,X,X,O,O,O,362,125,O,65
+66,"['curious camel', 'desert oasis', 'star dunes']",Camel's Starry Desert Oasis,X,X,X,O,O,O,409,133,O,66
+67,"['jolly jellyfish', 'ocean glow', 'tentacle dance']",Jellyfish's Glowy Tentacle Dance,X,X,X,O,O,O,393,132,O,67
+68,"['little lambkin', 'woolly cloud', 'meadow dreams']",Lambkin's Woolly Meadow Dream,X,X,X,O,O,O,375,123,O,68
+69,"['smart spider', 'silky web', 'dew drop castle']",Spider's Dewdrop Web Castle,X,X,X,O,O,O,379,127,O,69
+70,"['playful polar bear', 'icy slide', 'snowflake friends']",Polar Bear's Snowflake Slide,X,X,X,O,O,O,423,135,O,70
+71,"['tiny tortoise', 'slow journey', 'ancient shell']",Tortoise's Ancient Shell Tale,X,X,X,O,O,O,395,124,O,71
+72,"['kind kangaroo pouch', 'baby adventure', 'starry jump']",Kangaroo's Starry Pouch Ride,X,X,X,O,O,O,383,121,O,72
+73,"['magic mole', 'underground glow', 'crystal cave']",Mole's Sparkly Crystal Cave,X,X,X,O,O,O,393,127,O,73
+74,"['cheerful chipmunk', 'acorn race', 'forest fun']",Chipmunk's Acorn Forest Race,X,X,X,O,O,O,400,132,O,74
+75,"['brave baby dragon', 'first flight', 'cloud castle']",Baby Dragon's First Cloud Flight,X,X,X,O,O,O,437,138,O,75
+76,"['silly seal', 'beach ball', 'ocean bounce']",Seal's Bouncy Beach Ball Day,X,X,X,O,O,O,361,123,O,76
+77,"['little ladybug', 'spotty wings', 'flower house']",Ladybug's Spotty Flower Home,X,X,X,O,O,O,389,127,O,77
+78,"['gentle gorilla', 'jungle hug', 'banana bunch']",Gorilla's Big Banana Hug,X,X,X,O,O,O,420,141,O,78
+79,"['sparkly seagull', 'coastal wind', 'shell treasure']",Seagull's Shiny Shell Quest,X,X,X,O,O,O,435,140,O,79
+80,"['curious caterpillar', 'leaf tunnel', 'butterfly surprise']",Caterpillar's Leafy Surprise,X,X,X,O,O,O,364,114,O,80
+81,"['cozy raccoon', 'moon mask', 'forest night']",Raccoon's Moonlit Forest Mask,X,X,X,O,O,O,414,137,O,81
+82,"['brave beetle', 'shiny armor', 'leaf knight']",Beetle's Leafy Knight Adventure,X,X,X,O,O,O,419,140,O,82
+83,"['playful platypus', 'river bill', 'duck-billed fun']",Platypus's Bill River Games,X,X,X,O,O,O,424,143,O,83
+84,"['tiny termite', 'wooden castle', 'tunnel friends']",Termite's Tiny Wooden Castle,X,X,X,O,O,O,417,148,O,84
+85,"['magic meerkat', 'desert watch', 'sunset lookout']",Meerkat's Sunset Desert Watch,X,X,X,O,O,O,402,123,O,85
+86,"['sweet swan', 'graceful lake', 'feather dance']",Swan's Graceful Feather Lake,X,X,X,O,O,O,370,122,O,86
+87,"['little lynx', 'soft paws', 'snowy whisper']",Lynx's Soft Snowy Whisper,X,X,X,O,O,O,394,127,O,87
+88,"['friendly flamingo', 'pink lake', 'one-leg stand']",Flamingo's Pink Lake Dance,X,X,X,O,O,O,393,131,O,88
+89,"['brave bat', 'night wings', 'star fruit']",Bat's Starry Night Fruit,X,X,X,O,O,O,386,118,O,89
+90,"['curious chameleon', 'color change', 'leaf hide']",Chameleon's Leafy Color Hide,X,X,X,O,O,O,365,122,O,90
+91,"['jolly jaguar', 'spotted jungle', 'roar party']",Jaguar's Spotted Jungle Roar,X,X,X,O,O,O,379,119,O,91
+92,"['cozy cat', 'whisker dream', 'moon yarn']",Cat's Moonlight Whisker Dream,X,X,X,O,O,O,396,132,O,92
+93,"['tiny toadstool', 'fairy ring', 'mushroom house']",Toadstool's Fairy Ring Home,X,X,X,O,O,O,391,125,O,93
+94,"['brave bear cub', 'first honey', 'forest trail']",Bear Cub's First Honey Trail,X,X,X,O,O,O,424,131,O,94
+95,"['playful puffin', 'cliff nest', 'ocean fish']",Puffin's Cliffside Fish Adventure,X,X,X,O,O,O,379,126,O,95
+96,"['magic moth', 'moonlight wings', 'night garden']",Moth's Moonlit Garden Wings,X,X,X,O,O,O,376,130,O,96
+97,"['kind kiwi', 'brown feathers', 'star fruit']",Kiwi's Starry Fruit Night,X,X,X,O,O,O,398,127,O,97
+98,"['silly spider monkey', 'swinging tail', 'jungle giggle']",Spider Monkey's Giggle Swing,X,X,X,O,O,O,408,124,O,98
+99,"['gentle gazelle', 'graceful run', 'savanna wind']",Gazelle's Graceful Savanna Wind,X,X,X,O,O,O,398,127,O,99

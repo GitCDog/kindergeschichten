@@ -1,0 +1,102 @@
+numbering,keyword1,keyword2,keyword3,story_name
+100,brave broccoli knight,veggie kingdom,carrot sword,Broccoli Knight and the Carrot Sword Quest
+101,curious carrot,underground tunnel,root friends,Carrot's Secret Underground Adventure
+102,playful potato,magic garden,hidden sprouts,Potato's Magical Garden Surprise
+103,little tomato,red village,sunny patch,Tomato's Sunny Village Day
+104,cheerful cucumber,cool breeze,green valley,Cucumber's Cool Valley Journey
+105,magic pumpkin,harvest night,glowing lantern,Pumpkin's Glowing Harvest Night
+106,tiny pea pod,rolling hills,green family,Pea Pod's Rolling Hill Adventure
+107,brave lettuce leaf,salad kingdom,crunchy quest,Lettuce Leaf's Crunchy Kingdom Quest
+108,silly onion,tearful spell,layer mystery,Onion's Layered Mystery Tale
+109,kind corn cob,golden field,sunshine dance,Corn Cob's Golden Field Dance
+110,curious radish,hidden garden,earthy treasure,Radish's Hidden Garden Treasure
+111,little eggplant,purple castle,royal feast,Eggplant's Royal Purple Feast
+112,friendly zucchini,summer farm,veggie parade,Zucchini's Summer Farm Parade
+113,tiny garlic clove,spicy magic,kitchen adventure,Garlic Clove's Spicy Kitchen Adventure
+114,brave chili pepper,hot volcano,flame friends,Chili Pepper's Fiery Volcano Quest
+115,playful mushroom,forest floor,spore surprise,Mushroom's Forest Floor Surprise
+116,curious spinach leaf,green jungle,healthy hero,Spinach Leaf's Jungle Hero Journey
+117,magic beetroot,red river,earth power,Beetroot's Red River Magic
+118,little cabbage,round world,leafy layers,Cabbage's Leafy World Adventure
+119,sweet bell pepper,colorful town,rainbow market,Bell Pepper's Rainbow Market Day
+120,brave asparagus,spring field,tall tale,Asparagus's Tall Spring Tale
+121,tiny turnip,hidden path,garden secret,Turnip's Secret Garden Path
+122,playful green bean,climbing vine,sky reach,Green Bean's Sky High Climb
+123,curious celery,crunchy forest,snack trail,Celery's Crunchy Forest Trail
+124,magic sweet potato,cozy oven,warm glow,Sweet Potato's Cozy Glow Story
+125,little kale leaf,super garden,healthy quest,Kale Leaf's Super Garden Quest
+126,friendly leek,quiet farm,gentle breeze,Leek's Gentle Farm Breeze
+127,brave cauliflower,cloud field,fluffy dream,Cauliflower's Cloudy Dream Adventure
+128,silly pea shooter,garden game,target fun,Pea Shooter's Garden Game Day
+129,curious pumpkin seed,growing journey,giant dream,Pumpkin Seed's Giant Dream Journey
+130,tiny herb sprout,aroma magic,kitchen fairy,Herb Sprout's Kitchen Fairy Tale
+131,brave broccoli sprout,mini kingdom,green shield,Broccoli Sprout's Tiny Kingdom Quest
+132,curious carrot top,windy hill,leafy kite,Carrot Top's Windy Hill Adventure
+133,playful potato chip,crispy land,snack friends,Potato Chip's Crispy Land Party
+134,little tomato seed,growing patch,sun drop,Tomato Seed's Sunny Growth Tale
+135,cheerful cucumber slice,cool pond,water fun,Cucumber Slice's Cool Pond Day
+136,magic pumpkin pie,sweet village,dessert magic,Pumpkin Pie's Sweet Village Spell
+137,tiny pea sprout,dew drops,morning glow,Pea Sprout's Morning Glow Story
+138,brave lettuce wrap,food land,rolling hills,Lettuce Wrap's Rolling Hills Adventure
+139,silly onion ring,fun fair,golden crunch,Onion Ring's Fun Fair Day
+140,kind corn kernel,pop magic,festival night,Corn Kernel's Popcorn Festival
+141,curious radish leaf,hidden bugs,garden mystery,Radish Leaf's Garden Mystery
+142,little eggplant seedling,growing castle,purple dream,Eggplant Seedling's Purple Dream
+143,friendly zucchini flower,summer breeze,bee friends,Zucchini Flower's Breezy Day
+144,tiny garlic bulb,flavor town,spice magic,Garlic Bulb's Flavor Town Adventure
+145,brave chili seed,heat wave,spicy quest,Chili Seed's Spicy Quest
+146,playful mushroom cap,rainy forest,bounce fun,Mushroom Cap's Rainy Bounce Day
+147,curious spinach sprout,leaf maze,green puzzle,Spinach Sprout's Leaf Maze
+148,magic beet leaf,red glow,earth dance,Beet Leaf's Earth Dance Tale
+149,little cabbage roll,cozy kitchen,food story,Cabbage Roll's Cozy Kitchen Tale
+150,sweet bell pepper slice,rainbow road,color run,Bell Pepper's Rainbow Run
+151,brave asparagus tip,spring wind,tall jump,Asparagus Tip's Tall Jump Tale
+152,tiny turnip leaf,soft soil,garden path,Turnip Leaf's Garden Path
+153,playful green bean pod,swing vine,sky play,Green Bean Pod's Sky Swing
+154,curious celery stick,snack trail,crunch path,Celery Stick's Crunchy Trail
+155,magic sweet potato fry,golden glow,crispy quest,Sweet Potato Fry's Golden Quest
+156,little kale sprout,green world,healthy dream,Kale Sprout's Healthy Dream
+157,friendly leek sprout,farm song,quiet tune,Leek Sprout's Farm Song
+158,brave cauliflower floret,cloud puff,soft land,Cauliflower Floret's Cloud Land
+159,silly pea pod twins,garden giggle,double fun,Pea Pod Twins' Giggle Day
+160,curious pumpkin vine,twisty trail,growth secret,Pumpkin Vine's Twisty Trail
+161,tiny herb leaf,minty breeze,fresh magic,Herb Leaf's Fresh Magic Tale
+162,brave broccoli crown,forest king,green throne,Broccoli Crown's Forest Throne
+163,curious carrot juice,liquid world,orange river,Carrot Juice's Orange River
+164,playful potato mash,soft land,fluffy hills,Potato Mash's Fluffy Hills
+165,little tomato soup,warm bowl,cozy night,Tomato Soup's Cozy Night
+166,cheerful cucumber salad,cool mix,summer fun,Cucumber Salad's Summer Fun
+167,magic pumpkin spice,autumn wind,flavor swirl,Pumpkin Spice's Autumn Swirl
+168,tiny pea soup,green swirl,warm hug,Pea Soup's Warm Hug Story
+169,brave lettuce garden,leaf army,green battle,Lettuce Garden's Leafy Battle
+170,silly onion chef,kitchen fun,tearless magic,Onion Chef's Kitchen Magic
+171,kind corn field,crow friends,wind dance,Corn Field's Wind Dance
+172,curious radish root,deep soil,hidden cave,Radish Root's Hidden Cave
+173,little eggplant dish,royal meal,feast time,Eggplant Dish's Royal Feast
+174,friendly zucchini bread,bakery town,sweet smell,Zucchini Bread's Bakery Day
+175,tiny garlic toast,crunch bite,flavor land,Garlic Toast's Crunchy Tale
+176,brave chili sauce,spice world,hot river,Chili Sauce's Hot River
+177,playful mushroom soup,forest bowl,cozy sip,Mushroom Soup's Cozy Sip
+178,curious spinach pie,green crust,hidden filling,Spinach Pie's Hidden Surprise
+179,magic beet juice,red sparkle,energy burst,Beet Juice's Energy Burst
+180,little cabbage soup,warm pot,family meal,Cabbage Soup's Family Meal
+181,sweet bell pepper stew,color pot,rainbow mix,Bell Pepper Stew's Rainbow Mix
+182,brave asparagus soup,spring bowl,fresh taste,Asparagus Soup's Fresh Taste
+183,tiny turnip stew,root pot,earth flavor,Turnip Stew's Earthy Tale
+184,playful green bean salad,summer bowl,fresh crunch,Green Bean Salad's Crunch Day
+185,curious celery soup,light bowl,soft taste,Celery Soup's Soft Story
+186,magic sweet potato pie,holiday feast,sweet dream,Sweet Potato Pie Dream
+187,little kale chips,crispy snack,healthy crunch,Kale Chips' Crunchy Adventure
+188,friendly leek soup,quiet bowl,gentle taste,Leek Soup's Gentle Tale
+189,brave cauliflower bake,cheesy top,oven quest,Cauliflower Bake Quest
+190,silly pea pudding,green dessert,fun spoon,Pea Pudding Party
+191,curious pumpkin soup,autumn bowl,warm swirl,Pumpkin Soup Swirl
+192,tiny herb garden,mini pots,green magic,Herb Garden Magic
+193,brave veggie mix,color team,healthy quest,The Veggie Team Quest
+194,playful salad bowl,mixed friends,fun toss,Salad Bowl Toss Party
+195,curious kitchen garden,backyard world,growing joy,Kitchen Garden Joy
+196,magic veggie train,food tracks,travel fun,The Veggie Train Adventure
+197,little farmer kid,veggie patch,harvest day,Farmer Kid's Harvest Day
+198,friendly scarecrow,field watch,crow chat,Scarecrow's Field Friends
+199,brave garden gnome,hidden tools,secret help,Gnome's Secret Garden Help
+200,curious veggie basket,picnic day,food story,The Veggie Basket Picnic
