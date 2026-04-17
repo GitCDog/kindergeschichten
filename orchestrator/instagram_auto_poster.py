@@ -283,7 +283,7 @@ class InstagramAutoPoser:
 
             container_payload = {
                 "access_token": self.instagram_access_token,
-                "media_type": "VIDEO",
+                "media_type": "REELS",
                 "video_url": video_url,
                 "caption": caption
             }
@@ -304,7 +304,12 @@ class InstagramAutoPoser:
 
             logger.info(f"[+] Container created: {creation_id}")
 
-            # Step 2: Publish container
+            # Step 2: Wait for Instagram to process the video
+            logger.info("[*] Waiting 20 seconds for Instagram to process video...")
+            import time
+            time.sleep(20)
+
+            # Step 3: Publish container
             logger.info("[*] Publishing media to Instagram...")
             publish_url = f"https://graph.instagram.com/v18.0/{self.instagram_recipient_id}/media_publish"
 
