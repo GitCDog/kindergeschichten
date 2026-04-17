@@ -95,7 +95,7 @@ class InstagramAutoPoser:
 
     def get_next_video_from_cloudinary(self):
         """
-        Fetch video from Cloudinary that hasn't been posted yet.
+        Get NEXT unposted video in sequential order from input file.
         Returns: {
             'story_name': 'Story Name',
             'numbering': 1,
@@ -105,106 +105,132 @@ class InstagramAutoPoser:
         }
         """
         try:
-            logger.info("[*] Fetching video list from Cloudinary...")
+            logger.info("[*] Reading input file to find next unposted video...")
 
-            # List all videos in kindergeschichten folder
-            result = cloudinary.api.resources(
-                type="upload",
-                prefix="kindergeschichten/",
-                resource_type="video",
-                max_results=500
-            )
-
-            videos = result.get("resources", [])
-            logger.info(f"[*] Found {len(videos)} videos in Cloudinary")
-
-            if not videos:
-                logger.warning("[-] No videos found in Cloudinary kindergeschichten folder")
+            # Read input file to get sequential order
+            rows = self.manager.read_rows()
+            if not rows:
+                logger.warning("[-] No stories in input file")
                 return None
 
-            # Get list of already posted videos
-            posted = self._get_posted_videos()
-            posted_names = {v["story_name"] for v in posted}
+            # Find FIRST story with insta_post=O (in sequence)
+            next_story = None
+            for row in rows:
+                if row.get("insta_post") == "O":
+                    next_story = row
+                    break
 
-            # Find unposted videos
-            unposted = []
-            for video in videos:
-                public_id = video.get("public_id", "")
-                # Extract story info from filename: kindergeschichten/1_story_name or kindergeschichten/1_story_name_video
-                filename = public_id.split("/")[-1]
+            if not next_story:
+                logger.warning("[-] No unposted videos in input file (all have insta_post=X)")
+                return None
 
-                # Remove _video suffix if present
-                if filename.endswith("_video"):
-                    filename = filename[:-6]
+            numbering = next_story.get("numbering")
+            story_name = next_story.get("story_name")
 
-                # Parse: {numbering}_{story_name}
-                parts = filename.split("_", 1)
-                if len(parts) != 2:
-                    logger.warning(f"[!] Skipping video with unexpected filename format: {filename}")
-                    continue
+            logger.info(f"[+] Next video to post (in sequence): #{numbering} - {story_name}")
 
+            # Now find this video on Cloudinary
+            logger.info("[*] Finding video on Cloudinary...")
+
+            # Search in both kindergeschichten/ folder and root
+            all_videos = []
+            try:
+                result = cloudinary.api.resources(
+                    type="upload",
+                    prefix="kindergeschichten/",
+                    resource_type="video",
+                    max_results=500
+                )
+                all_videos.extend(result.get("resources", []))
+            except:
+                pass
+
+            try:
+                result_root = cloudinary.api.resources(
+                    type="upload",
+                    resource_type="video",
+                    max_results=500
+                )
+                root_videos = [v for v in result_root.get("resources", []) if "/" not in v.get("public_id", "")]
+                all_videos.extend(root_videos)
+            except:
+                pass
+
+            if not all_videos:
+                logger.error(f"[-] No videos found on Cloudinary")
+                return None
+
+            # Find matching video by numbering
+            video_url = None
+            public_id = None
+            for video in all_videos:
+                pid = video.get("public_id", "")
+                filename = pid.split("/")[-1]
+
+                # Try to extract numbering from filename
                 try:
-                    numbering = int(parts[0])
-                    story_name = parts[1]
+                    num_str = filename.split("_")[0]
+                    num = int(num_str)
 
-                    if story_name not in posted_names:
-                        unposted.append({
-                            "numbering": numbering,
-                            "story_name": story_name,
-                            "public_id": public_id,
-                            "url": video.get("secure_url", video.get("url", ""))
-                        })
-                except ValueError:
-                    logger.warning(f"[!] Could not parse numbering from: {filename}")
-                    continue
+                    if num == int(numbering):
+                        video_url = video.get("secure_url", video.get("url", ""))
+                        public_id = pid
+                        logger.info(f"[+] Found on Cloudinary: {pid}")
+                        break
+                except:
+                    pass
 
-            logger.info(f"[*] Found {len(unposted)} unposted videos")
-
-            if not unposted:
-                logger.warning("[-] No unposted videos available")
+            if not video_url:
+                logger.error(f"[-] Video #{numbering} not found on Cloudinary")
                 return None
 
-            # Select random video
-            selected = random.choice(unposted)
-            logger.info(f"[+] Selected video: {selected['numbering']}_{selected['story_name']}")
-
-            # Get story metadata (keywords) from input file
-            story_info = self._get_story_info(selected["story_name"])
-            if story_info:
-                selected["keywords"] = [
-                    story_info.get("keyword1", ""),
-                    story_info.get("keyword2", ""),
-                    story_info.get("keyword3", "")
+            # Prepare response
+            selected = {
+                "numbering": int(numbering),
+                "story_name": story_name,
+                "public_id": public_id,
+                "url": video_url,
+                "keywords": [
+                    next_story.get("keyword1", ""),
+                    next_story.get("keyword2", ""),
+                    next_story.get("keyword3", "")
                 ]
-                selected["keywords"] = [k for k in selected["keywords"] if k]  # Remove empty
+            }
+            selected["keywords"] = [k for k in selected["keywords"] if k]
 
             return selected
 
         except Exception as e:
-            logger.error(f"[-] Error fetching from Cloudinary: {e}")
+            logger.error(f"[-] Error getting next video: {e}")
+            import traceback
+            traceback.print_exc()
             return None
 
     def generate_dynamic_caption(self, story_info):
         """
-        Generate Instagram caption from story metadata.
-        Format: {story_title}
-
-                Stichpunkte: {keyword1} {keyword2} {keyword3}
-
-                #kindergeschichten #kinderbücher #einschlafgeschichte #gutenachtgeschichte #kindergarten
+        Generate sweet invitation caption for kids to listen to the story.
+        Format: Sweet invitation + story_name + 5 hashtags (in English)
         """
         try:
             story_name = story_info.get("story_name", "Unknown Story")
-            keywords = story_info.get("keywords", [])
 
-            # Build caption
-            caption = f"{story_name}\n\n"
+            # Sweet invitations in English (rotate through different ones)
+            invitations = [
+                f"Want to hear the story '{story_name}'?\nA wonderful adventure awaits you! 🌙",
+                f"Join us on a journey into the world of '{story_name}'!\nA story full of magic and surprises... ✨",
+                f"The story '{story_name}' is calling you!\nGet ready for an exciting adventure... 🎭",
+                f"Ready for '{story_name}'?\nA wonderful story to dream about... 💫",
+                f"'{story_name}' is waiting for you!\nLet's experience an adventure together... 🌟"
+            ]
 
-            if keywords:
-                caption += f"Stichpunkte: {' · '.join(keywords)}\n\n"
+            # Pick a random invitation
+            caption = random.choice(invitations)
 
-            # Add hashtags
-            hashtags = "#kindergeschichten #kinderbücher #einschlafgeschichte #gutenachtgeschichte #kindergarten #vorlesegeschichte #gutenacht #schlafen"
+            # Add newline before hashtags
+            caption += "\n\n"
+
+            # 5 relevant hashtags (in English)
+            hashtags = "#bedtimestories #kidsbooks #sleepystories #childrensaudio #bedtimeadventure"
             caption += hashtags
 
             logger.info(f"[+] Caption generated ({len(caption)} chars)")
@@ -212,7 +238,7 @@ class InstagramAutoPoser:
 
         except Exception as e:
             logger.error(f"[-] Error generating caption: {e}")
-            return f"{story_info.get('story_name', 'Kindergeschichte')}\n\n#kindergeschichten #kinderbücher"
+            return f"Come and listen to the story!\n\n#bedtimestories #kidsbooks #sleepystories #childrensaudio #bedtimeadventure"
 
     def post_to_instagram(self, video_url, caption):
         """
@@ -234,7 +260,7 @@ class InstagramAutoPoser:
                 "caption": caption
             }
 
-            container_response = requests.post(container_url, data=container_payload, timeout=30)
+            container_response = requests.post(container_url, json=container_payload, timeout=30)
 
             if container_response.status_code != 200:
                 logger.error(f"[-] Container creation failed: {container_response.status_code}")
@@ -259,7 +285,7 @@ class InstagramAutoPoser:
                 "creation_id": creation_id
             }
 
-            publish_response = requests.post(publish_url, data=publish_payload, timeout=30)
+            publish_response = requests.post(publish_url, json=publish_payload, timeout=30)
 
             if publish_response.status_code != 200:
                 logger.error(f"[-] Publishing failed: {publish_response.status_code}")
@@ -285,35 +311,53 @@ class InstagramAutoPoser:
 
     def log_posted_video(self, story_info, post_id):
         """
-        Record posted video in posted_videos.json and update GitHub if configured.
+        Record posted video and update input file to mark as posted.
+        Updates both local and GitHub files.
         """
         try:
-            posted_file = Path("posted_videos.json")
+            story_name = story_info.get("story_name")
 
-            # Load existing data
+            # 1. Update LOCAL input file
+            logger.info("[*] Updating local input file...")
+            try:
+                rows = self.manager.read_rows()
+                updated = False
+                for row in rows:
+                    if row.get("story_name") == story_name:
+                        row["insta_post"] = "X"
+                        updated = True
+                        logger.info(f"[+] Set insta_post=X for {story_name}")
+                        break
+
+                if updated:
+                    self.manager.save_rows(rows, f"Posted to Instagram: {story_name}")
+                    logger.info(f"[+] Local input file updated")
+            except Exception as e:
+                logger.error(f"[-] Error updating local input file: {e}")
+
+            # 2. Update posted_videos.json
+            posted_file = Path("posted_videos.json")
             if posted_file.exists():
                 with open(posted_file, 'r', encoding='utf-8') as f:
                     data = json.load(f)
             else:
                 data = {"videos": []}
 
-            # Add new entry
             new_entry = {
                 "numbering": story_info.get("numbering"),
-                "story_name": story_info.get("story_name"),
+                "story_name": story_name,
                 "post_id": post_id,
                 "date_posted": datetime.now().isoformat(),
                 "cloudinary_url": story_info.get("url")
             }
             data["videos"].append(new_entry)
 
-            # Save locally
             with open(posted_file, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
-            logger.info(f"[+] Logged posted video locally: {story_info['story_name']}")
+            logger.info(f"[+] Posted video logged: {story_name}")
 
-            # Update GitHub if configured
+            # 3. Update GitHub if configured
             if self.use_github:
                 self._update_github_input_file(story_info)
                 self._update_github_posted_videos(data)
