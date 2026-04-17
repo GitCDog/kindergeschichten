@@ -2,8 +2,8 @@ name: Daily Instagram Story Post
 
 on:
   schedule:
-    # Run daily at 17:55 CET (16:55 UTC)
-    - cron: '55 16 * * *'
+    # Run daily at 15:24 CET (14:24 UTC)
+    - cron: '24 14 * * *'
 
   # Allow manual trigger
   workflow_dispatch:
