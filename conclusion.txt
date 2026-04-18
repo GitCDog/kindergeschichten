@@ -1,6 +1,6 @@
 ✅ KINDERGESCHICHTEN-AUTOMATION SYSTEM ERFOLGREICH KONFIGURIERT!
 
-Standort: C:\Users\slawa\Desktop\claude\5_kindergeschichten-automation
+Standort: /pfad/zu/kindergeschichten-automation
 
 === WAS WURDE BEHOBEN ===
 ✅ Ordner umbenannt (Bindestriche → Unterstriche) für gültige Python-Module
@@ -11,7 +11,7 @@ Standort: C:\Users\slawa\Desktop\claude\5_kindergeschichten-automation
 === NÄCHSTE SCHRITTE ZUM STARTEN ===
 
 1. ABHÄNGIGKEITEN INSTALLIEREN
-   cd C:\Users\slawa\Desktop\claude\5_kindergeschichten-automation
+   cd /pfad/zu/kindergeschichten-automation
    python -m venv venv
    venv\Scripts\activate
    pip install -r orchestrator/requirements.txt

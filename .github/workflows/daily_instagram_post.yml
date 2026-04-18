@@ -2,7 +2,7 @@ name: Daily Instagram Post
 
 on:
   schedule:
-    - cron: '20 13 * * *'  # 15:20 CEST (summer) / 14:20 CET (winter) — always before the 18:00 posting window
+    - cron: '30 14 */3 * *'  # 15:30 CET (UTC+1) — every 3 days
   workflow_dispatch:         # Allow manual trigger from GitHub UI
 
 permissions:
@@ -37,5 +37,5 @@ jobs:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_RECIPIENT_ID: ${{ secrets.INSTAGRAM_RECIPIENT_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPO: slawakupermann-cloud/kindergeschichten
+          GITHUB_REPO: ${{ github.repository }}
         run: python instagram_auto_poster.py
