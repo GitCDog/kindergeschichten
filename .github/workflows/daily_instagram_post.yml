@@ -2,7 +2,7 @@ name: Daily Instagram Post
 
 on:
   schedule:
-    - cron: '30 13 */3 * *'  # 15:30 CEST (summer) / 14:30 CET (winter) — every 3 days
+    - cron: '30 14 */3 * *'  # 15:30 CET (UTC+1) — every 3 days
   workflow_dispatch:         # Allow manual trigger from GitHub UI
 
 permissions:
