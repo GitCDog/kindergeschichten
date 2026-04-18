@@ -17,8 +17,8 @@ python dashboard_api.py
 ### Automatic Instagram Posting (GitHub Actions)
 **Posts automatically every 3 days at 15:30 CET**
 
-Setup already configured in `.github/workflows/instagram-poster.yml`:
-- GitHub Actions triggers every 3 days
+Setup already configured in `.github/workflows/daily_instagram_post.yml`:
+- GitHub Actions triggers every 3 days at 15:30 CET (14:30 UTC)
 - Reads input file from GitHub
 - Posts next unposted video to Instagram
 - Updates GitHub tracking automatically
