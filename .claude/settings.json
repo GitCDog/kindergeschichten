@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"⚠️  Vergiss nicht: git pull origin main ausführen, um die neuesten Änderungen von GitHub lokal zu holen!\"}'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
