@@ -333,7 +333,7 @@
     "status_picture": "X",
     "status_video": "X",
     "status_caption": "O",
-    "insta_post": "O"
+    "insta_post": "X"
   },
   {
     "numbering": "22",
@@ -381,7 +381,7 @@
     "status_picture": "X",
     "status_video": "X",
     "status_caption": "O",
-    "insta_post": "O"
+    "insta_post": "X"
   },
   {
     "numbering": "25",
@@ -1002,8 +1002,8 @@
     "status_story_json": "X",
     "status_audio": "X",
     "seconds": "113",
-    "status_picture": "O",
-    "status_video": "O",
+    "status_picture": "X",
+    "status_video": "X",
     "status_caption": "O",
     "insta_post": "O"
   },
@@ -1018,8 +1018,8 @@
     "status_story_json": "X",
     "status_audio": "X",
     "seconds": "119",
-    "status_picture": "O",
-    "status_video": "O",
+    "status_picture": "X",
+    "status_video": "X",
     "status_caption": "O",
     "insta_post": "O"
   },
@@ -1034,8 +1034,8 @@
     "status_story_json": "X",
     "status_audio": "X",
     "seconds": "125",
-    "status_picture": "O",
-    "status_video": "O",
+    "status_picture": "X",
+    "status_video": "X",
     "status_caption": "O",
     "insta_post": "O"
   },
@@ -1050,8 +1050,8 @@
     "status_story_json": "X",
     "status_audio": "X",
     "seconds": "133",
-    "status_picture": "O",
-    "status_video": "O",
+    "status_picture": "X",
+    "status_video": "X",
     "status_caption": "O",
     "insta_post": "O"
   },
@@ -1066,8 +1066,8 @@
     "status_story_json": "X",
     "status_audio": "X",
     "seconds": "132",
-    "status_picture": "O",
-    "status_video": "O",
+    "status_picture": "X",
+    "status_video": "X",
     "status_caption": "O",
     "insta_post": "O"
   },
@@ -1082,8 +1082,8 @@
     "status_story_json": "X",
     "status_audio": "X",
     "seconds": "123",
-    "status_picture": "O",
-    "status_video": "O",
+    "status_picture": "X",
+    "status_video": "X",
     "status_caption": "O",
     "insta_post": "O"
   },
@@ -1098,8 +1098,8 @@
     "status_story_json": "X",
     "status_audio": "X",
     "seconds": "127",
-    "status_picture": "O",
-    "status_video": "O",
+    "status_picture": "X",
+    "status_video": "X",
     "status_caption": "O",
     "insta_post": "O"
   },
@@ -1114,8 +1114,8 @@
     "status_story_json": "X",
     "status_audio": "X",
     "seconds": "135",
-    "status_picture": "O",
-    "status_video": "O",
+    "status_picture": "X",
+    "status_video": "X",
     "status_caption": "O",
     "insta_post": "O"
   },
