@@ -39,3 +39,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPO: ${{ github.repository }}
         run: python instagram_auto_poster.py
+
+      - name: Regenerate dashboard
+        working-directory: orchestrator
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+        run: |
+          git pull
+          python sync_from_github.py
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dashboard_data.json dashboard.html
+          git diff --staged --quiet || git commit -m "[AUTO] Regenerate dashboard after Instagram post"
+          git push
