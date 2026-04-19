@@ -22,7 +22,7 @@ numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_
 21,cheerful monkey,jungle swing,banana feast,Monkey_s_Banana_Jungle_Party,X,350,X,X,116,X,X,O,X
 22,sleepy bear,honey tree,dreamy meadow,Bear_s_Sweet_Honey_Dreams,X,394,X,X,132,X,X,O,X
 23,tiny fairy,dew drop castle,butterfly wings,Fairy_s_Dewdrop_Butterfly_Dance,X,385,X,X,128,X,X,O,X
-24,brave lion,courage cave,roaring echo,Lion_s_Brave_Echo_Cave,X,377,X,X,120,X,X,O,O
+24,brave lion,courage cave,roaring echo,Lion_s_Brave_Echo_Cave,X,377,X,X,120,X,X,O,X
 25,smart owl,night library,star books,Owl_s_Starry_Night_Library,X,386,X,X,130,X,X,O,O
 26,little elephant,jungle river,splashing fun,Elephant_s_Big_Splash_River_Day,X,377,X,X,126,X,X,O,O
 27,gentle deer,whispering wind,ancient oak,Deer_s_Gentle_Forest_Secret,X,388,X,X,136,X,X,O,O
