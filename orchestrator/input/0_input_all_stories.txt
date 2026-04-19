@@ -61,14 +61,14 @@ numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_
 60,tiny tiger,courage stripes,jungle roar,Tiger_s_Brave_Stripe_Adventure,X,423,X,X,139,X,X,O,O
 61,friendly frog,lily pad pond,rainy song,Frog_s_Rainy_Lily_Pad_Song,X,395,X,X,127,X,X,O,O
 62,little hippo,muddy river,splashy fun,Hippo's Big Muddy Splash,X,394,X,X,133,X,X,O,O
-63,magic mushroom,forest fairy,dotty house,Mushroom's Fairy Dotty Home,X,367,X,X,113,O,O,O,O
-64,sweet sloth,slow swing,leaf hammock,Sloth's Lazy Leaf Swing,X,358,X,X,119,O,O,O,O
-65,brave butterfly,caterpillar courage,wings of light,Butterfly's Courage Wings,X,362,X,X,125,O,O,O,O
-66,curious camel,desert oasis,star dunes,Camel's Starry Desert Oasis,X,409,X,X,133,O,O,O,O
-67,jolly jellyfish,ocean glow,tentacle dance,Jellyfish's Glowy Tentacle Dance,X,393,X,X,132,O,O,O,O
-68,little lambkin,woolly cloud,meadow dreams,Lambkin's Woolly Meadow Dream,X,375,X,X,123,O,O,O,O
-69,smart spider,silky web,dew drop castle,Spider's Dewdrop Web Castle,X,379,X,X,127,O,O,O,O
-70,playful polar bear,icy slide,snowflake friends,Polar Bear's Snowflake Slide,X,423,X,X,135,O,O,O,O
+63,magic mushroom,forest fairy,dotty house,Mushroom's Fairy Dotty Home,X,367,X,X,113,X,X,O,O
+64,sweet sloth,slow swing,leaf hammock,Sloth's Lazy Leaf Swing,X,358,X,X,119,X,X,O,O
+65,brave butterfly,caterpillar courage,wings of light,Butterfly's Courage Wings,X,362,X,X,125,X,X,O,O
+66,curious camel,desert oasis,star dunes,Camel's Starry Desert Oasis,X,409,X,X,133,X,X,O,O
+67,jolly jellyfish,ocean glow,tentacle dance,Jellyfish's Glowy Tentacle Dance,X,393,X,X,132,X,X,O,O
+68,little lambkin,woolly cloud,meadow dreams,Lambkin's Woolly Meadow Dream,X,375,X,X,123,X,X,O,O
+69,smart spider,silky web,dew drop castle,Spider's Dewdrop Web Castle,X,379,X,X,127,X,X,O,O
+70,playful polar bear,icy slide,snowflake friends,Polar Bear's Snowflake Slide,X,423,X,X,135,X,X,O,O
 71,tiny tortoise,slow journey,ancient shell,Tortoise's Ancient Shell Tale,X,395,X,X,124,O,O,O,O
 72,kind kangaroo pouch,baby adventure,starry jump,Kangaroo's Starry Pouch Ride,X,383,X,X,121,O,O,O,O
 73,magic mole,underground glow,crystal cave,Mole's Sparkly Crystal Cave,X,393,X,X,127,O,O,O,O
