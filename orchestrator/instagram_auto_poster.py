@@ -298,7 +298,7 @@ class InstagramAutoPoser:
             logger.info("[*] Creating Instagram media container...")
 
             # Step 1: Create container
-            container_url = f"https://graph.facebook.com/v25.0/{self.instagram_recipient_id}/media"
+            container_url = f"https://graph.instagram.com/v18.0/{self.instagram_recipient_id}/media"
 
             container_payload = {
                 "access_token": self.instagram_access_token,
@@ -333,7 +333,7 @@ class InstagramAutoPoser:
                 time.sleep(10)
                 attempt += 1
 
-                status_url = f"https://graph.facebook.com/v25.0/{creation_id}"
+                status_url = f"https://graph.instagram.com/v18.0/{creation_id}"
                 status_response = requests.get(status_url, params={"fields": "status", "access_token": self.instagram_access_token}, timeout=30)
 
                 if status_response.status_code == 200:
@@ -349,7 +349,7 @@ class InstagramAutoPoser:
 
             # Step 3: Publish container
             logger.info("[*] Publishing media to Instagram...")
-            publish_url = f"https://graph.facebook.com/v25.0/{self.instagram_recipient_id}/media_publish"
+            publish_url = f"https://graph.instagram.com/v18.0/{self.instagram_recipient_id}/media_publish"
 
             publish_payload = {
                 "access_token": self.instagram_access_token,
