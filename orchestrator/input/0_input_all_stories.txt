@@ -24,7 +24,7 @@ numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_
 23,tiny fairy,dew drop castle,butterfly wings,Fairy_s_Dewdrop_Butterfly_Dance,X,385,X,X,128,X,X,O,X
 24,brave lion,courage cave,roaring echo,Lion_s_Brave_Echo_Cave,X,377,X,X,120,X,X,O,X
 25,smart owl,night library,star books,Owl_s_Starry_Night_Library,X,386,X,X,130,X,X,O,X
-26,little elephant,jungle river,splashing fun,Elephant_s_Big_Splash_River_Day,X,377,X,X,126,X,X,O,O
+26,little elephant,jungle river,splashing fun,Elephant_s_Big_Splash_River_Day,X,377,X,X,126,X,X,O,X
 27,gentle deer,whispering wind,ancient oak,Deer_s_Gentle_Forest_Secret,X,388,X,X,136,X,X,O,O
 28,playful dolphin,ocean waves,treasure reef,Dolphin_s_Sparkly_Treasure_Reef,X,388,X,X,122,X,X,O,O
 29,magic puppy,rainbow collar,friendship bone,Puppy_s_Rainbow_Friendship_Bone,X,399,X,X,132,X,X,O,O
