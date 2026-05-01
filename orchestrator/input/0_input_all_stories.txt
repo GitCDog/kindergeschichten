@@ -26,7 +26,7 @@ numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_
 25,smart owl,night library,star books,Owl_s_Starry_Night_Library,X,386,X,X,130,X,X,O,X
 26,little elephant,jungle river,splashing fun,Elephant_s_Big_Splash_River_Day,X,377,X,X,126,X,X,O,X
 27,gentle deer,whispering wind,ancient oak,Deer_s_Gentle_Forest_Secret,X,388,X,X,136,X,X,O,X
-28,playful dolphin,ocean waves,treasure reef,Dolphin_s_Sparkly_Treasure_Reef,X,388,X,X,122,X,X,O,O
+28,playful dolphin,ocean waves,treasure reef,Dolphin_s_Sparkly_Treasure_Reef,X,388,X,X,122,X,X,O,X
 29,magic puppy,rainbow collar,friendship bone,Puppy_s_Rainbow_Friendship_Bone,X,399,X,X,132,X,X,O,O
 30,cozy hedgehog,warm blanket,autumn leaves,Hedgehog_s_Cozy_Leaf_Nest,X,357,X,X,122,X,X,O,O
 31,little pirate,wooden ship,glowing island,Pirate_s_Glowing_Island_Quest,X,372,X,X,131,X,X,O,O
