@@ -414,11 +414,12 @@ class InstagramAutoPoser:
             self._update_github_input_file(story_info)
             self._update_github_posted_videos(data)
 
-            # 4. Delete video from Cloudinary (cleanup)
-            self._delete_from_cloudinary(story_info)
-
         except Exception as e:
             logger.error(f"[-] Error logging posted video: {e}")
+
+        finally:
+            # 4. Always delete from Cloudinary after successful post
+            self._delete_from_cloudinary(story_info)
 
     def _update_github_input_file(self, story_info):
         """Update input file on GitHub to mark video as posted."""
