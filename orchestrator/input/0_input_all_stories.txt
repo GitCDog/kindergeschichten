@@ -39,7 +39,7 @@ numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_
 38,little kangaroo,jumping pouch,desert stars,Kangaroo_s_Starry_Desert_Jump,X,340,X,X,110,X,X,O,X
 39,magic caterpillar,leaf blanket,butterfly dream,Caterpillar_s_Butterfly_Dream,X,377,X,X,128,X,X,O,X
 40,curious squirrel,acorn treasure,nutty forest,Squirrel_s_Hidden_Acorn_Treasure,X,394,X,X,128,X,X,O,X
-41,brave seahorse,coral kingdom,ocean bubbles,Seahorse_s_Bubble_Kingdom,X,373,X,X,118,X,X,O,O
+41,brave seahorse,coral kingdom,ocean bubbles,Seahorse_s_Bubble_Kingdom,X,373,X,X,118,X,X,O,X
 42,sweet lamb,fluffy cloud,gentle meadow,Lamb_s_Fluffy_Cloud_Nap,X,354,X,X,115,X,X,O,O
 43,little robot dog,battery moon,star chase,Robot_Dog_s_Starry_Chase,X,359,X,X,111,X,X,O,O
 44,whimsical whale,ocean song,starfish friends,Whale_s_Starfish_Ocean_Song,X,352,X,X,121,X,X,O,O
