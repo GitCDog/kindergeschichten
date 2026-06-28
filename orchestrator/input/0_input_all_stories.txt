@@ -44,7 +44,7 @@ numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_
 43,little robot dog,battery moon,star chase,Robot_Dog_s_Starry_Chase,X,359,X,X,111,X,X,O,X
 44,whimsical whale,ocean song,starfish friends,Whale_s_Starfish_Ocean_Song,X,352,X,X,121,X,X,O,X
 45,playful panda,bamboo forest,rolling hills,Panda_s_Bamboo_Rolling_Adventure,X,372,X,X,124,X,X,O,X
-46,tiny firefly,night lantern,forest glow,Firefly_s_Magical_Forest_Glow,X,354,X,X,116,X,X,O,O
+46,tiny firefly,night lantern,forest glow,Firefly_s_Magical_Forest_Glow,X,354,X,X,116,X,X,O,X
 47,clever crow,shiny pebble,treasure nest,Crow_s_Sparkly_Pebble_Nest,X,379,X,X,129,X,X,O,O
 48,kind koala,eucalyptus tree,dreamy branch,Koala_s_Cozy_Tree_Dream,X,376,X,X,123,X,X,O,O
 49,little zebra,striped adventure,savanna sun,Zebra_s_Sunny_Striped_Day,X,358,X,X,113,X,X,O,O
