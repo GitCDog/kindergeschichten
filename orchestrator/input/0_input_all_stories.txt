@@ -46,7 +46,7 @@ numbering,keyword1,keyword2,keyword3,story_name,status_story,words,status_story_
 45,playful panda,bamboo forest,rolling hills,Panda_s_Bamboo_Rolling_Adventure,X,372,X,X,124,X,X,O,X
 46,tiny firefly,night lantern,forest glow,Firefly_s_Magical_Forest_Glow,X,354,X,X,116,X,X,O,X
 47,clever crow,shiny pebble,treasure nest,Crow_s_Sparkly_Pebble_Nest,X,379,X,X,129,X,X,O,X
-48,kind koala,eucalyptus tree,dreamy branch,Koala_s_Cozy_Tree_Dream,X,376,X,X,123,X,X,O,O
+48,kind koala,eucalyptus tree,dreamy branch,Koala_s_Cozy_Tree_Dream,X,376,X,X,123,X,X,O,X
 49,little zebra,striped adventure,savanna sun,Zebra_s_Sunny_Striped_Day,X,358,X,X,113,X,X,O,O
 50,brave badger,underground tunnel,star crystals,Badger_s_Crystal_Tunnel_Quest,X,400,X,X,127,X,X,O,O
 51,silly snail,slow race,leaf umbrella,Snail_s_Leaf_Umbrella_Race,X,382,X,X,125,X,X,O,O
